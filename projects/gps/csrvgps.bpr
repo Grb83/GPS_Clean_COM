@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="csrvgps.exe"/>
+    <OBJFILES value="obj\j_main.obj obj\main_thread.obj obj\ComServerSocket.obj 
+      obj\ComServerException.obj obj\AvcTime.obj obj\base_serv.obj 
+      obj\double_base_serv.obj"/>
+    <RESFILES value=""/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES)"/>
+    <LIBFILES value="vctime\vcTimeLib.lib"/>
+    <LIBRARIES value="vcl.lib rtl.lib"/>
+    <SPARELIBS value="rtl.lib vcl.lib"/>
+    <PACKAGES value="rtl.bpi vcl.bpi vclx.bpi bcbsmp.bpi dbrtl.bpi vcldb.bpi adortl.bpi 
+      ibsmp.bpi bdertl.bpi vcldbx.bpi qrpt.bpi teeui.bpi teedb.bpi tee.bpi 
+      dss.bpi teeqr.bpi ibxpress.bpi dsnap.bpi vclie.bpi inetdb.bpi inet.bpi 
+      nmfast.bpi webdsnap.bpi bcbie.bpi dclocx.bpi bcb97axserver.bpi"/>
+    <PATHCPP value=".;MUXSOCK;ComServerExcep;vctime;..\lib;..\lib"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="NO_STRICT"/>
+    <MAINSOURCE value="csrvgps.bpf"/>
+    <INCLUDEPATH value="..\lib;vctime;ComServerExcep;$(BCB)\include;$(BCB)\include\vcl;MUXSOCK"/>
+    <LIBPATH value="..\lib;vctime;ComServerExcep;MUXSOCK;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-I..\lib -Ivctime -IComServerExcep -I$(BCB)\include -I$(BCB)\include\vcl 
+      -IMUXSOCK -src_suffix cpp -D_DEBUG -boa"/>
+    <CFLAG1 value="-Od -H=c:\borland\CBUILD~1\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a1 -b- -k -y 
+      -v -vi- -tWC -tWM -c"/>
+    <PFLAGS value="-N2obj -N0obj -$YD -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-Iobj -D&quot;&quot; -ap -Tpe -x -Gn -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0x32.obj sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="csrvgps.bpf" FORMNAME="" UNITNAME="csrvgps" CONTAINERID="BPF" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="j_main.cpp" FORMNAME="" UNITNAME="j_main" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="main_thread.cpp" FORMNAME="" UNITNAME="main_thread" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="MUXSOCK\ComServerSocket.cpp" FORMNAME="" UNITNAME="ComServerSocket" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="ComServerExcep\ComServerException.cpp" FORMNAME="" UNITNAME="ComServerException" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="vctime\vcTimeLib.lib" FORMNAME="" UNITNAME="vcTimeLib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="vctime\AvcTime.cpp" FORMNAME="" UNITNAME="AvcTime" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\lib\base_serv.cpp" FORMNAME="" UNITNAME="base_serv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\lib\double_base_serv.cpp" FORMNAME="" UNITNAME="double_base_serv" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=0
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1049
+CodePage=1251
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[HistoryLists\hlIncludePath]
+Count=12
+Item0=..\lib;vctime;ComServerExcep;$(BCB)\include;$(BCB)\include\vcl;MUXSOCK
+Item1=..\lib;vctime;D:\IGOR8\work530\;ComServerExcep;ComServerOCI;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\include;$(BCB)\include\vcl;MUXSOCK
+Item2=..\lib;vctime;D:\IGOR8\work530;ComServerExcep;ComServerOCI;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\include;$(BCB)\include\vcl;MUXSOCK
+Item3=ComServerExcep;ComServerOCI;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\include;$(BCB)\include\vcl;MUXSOCK
+Item4=ComServerExcep;ComServerOCI;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\include;$(BCB)\include\vcl;MUXSOCK;ComServerExcep
+Item5=ComServerOCI;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\include;$(BCB)\include\vcl;MUXSOCK;ComServerOCI
+Item6=ComServerOCI;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\include;$(BCB)\include\vcl;MUXSOCK
+Item7=D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\include;$(BCB)\include\vcl;MUXSOCK
+Item8=D:\cmplr\CBuilder5\Projects;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\include;$(BCB)\include\vcl;MUXSOCK
+Item9=D:\cmplr\CBuilder5\Projects;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\include;$(BCB)\include\vcl
+Item10=..\work536\include;..\work536;D:\cmplr\cbuilder5\CBuilder5\Bin\;..\work530;Forms;Threads;D:\Program Files\Borland\CBuilder5\Projects\;ComServerExcep;MUXSOCK;Include;$(BCB)\include;$(BCB)\include\vcl
+Item11=..\work536\include;..\work536;D:\cmplr\cbuilder5\CBuilder5\Bin;..\work530;Forms;Threads;D:\Program Files\Borland\CBuilder5\Projects\;ComServerExcep;MUXSOCK;Include;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=11
+Item0=..\lib;vctime;ComServerExcep;MUXSOCK;$(BCB)\lib\obj;$(BCB)\lib
+Item1=..\lib;vctime;D:\IGOR8\work530\;ComServerExcep;ComServerOCI;MUXSOCK;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\lib\obj;$(BCB)\lib
+Item2=..\lib;vctime;D:\IGOR8\work530;ComServerExcep;ComServerOCI;MUXSOCK;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\lib\obj;$(BCB)\lib
+Item3=ComServerExcep;ComServerOCI;MUXSOCK;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\lib\obj;$(BCB)\lib
+Item4=ComServerOCI;MUXSOCK;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\lib\obj;$(BCB)\lib
+Item5=MUXSOCK;D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\lib\obj;$(BCB)\lib
+Item6=D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\lib\obj;$(BCB)\lib;MUXSOCK
+Item7=D:\cmplr\CBuilder5\Projects\;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\lib\obj;$(BCB)\lib
+Item8=D:\cmplr\CBuilder5\Projects;D:\cmplr\CBuilder5\work536\include\;D:\cmplr\CBuilder5\work536\;D:\cmplr\cbuilder5\CBuilder5\Bin\;D:\cmplr\CBuilder5\work530\;D:\cmplr\CBuilder5\Projects\Forms\;D:\cmplr\CBuilder5\Projects\Threads\;D:\Program Files\Borland\CBuilder5\Projects\;D:\cmplr\CBuilder5\Projects\ComServerExcep\;D:\cmplr\CBuilder5\Projects\MUXSOCK\;D:\cmplr\CBuilder5\Projects\Include\;$(BCB)\lib\obj;$(BCB)\lib
+Item9=..\work536\include;..\work536;D:\cmplr\cbuilder5\CBuilder5\Bin\;..\work530;Forms;Threads;D:\Program Files\Borland\CBuilder5\Projects\;ComServerExcep;MUXSOCK;Include;$(BCB)\lib\obj;$(BCB)\lib
+Item10=..\work536\include;..\work536;D:\cmplr\cbuilder5\CBuilder5\Bin;..\work530;Forms;Threads;D:\Program Files\Borland\CBuilder5\Projects\;ComServerExcep;MUXSOCK;Include;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=1
+Item0=_DEBUG
+
+[HistoryLists\hlIntOutputDir]
+Count=1
+Item0=obj
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=tns=slav user=ryda password=tyda /C
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+  </IDEOPTIONS>
+</PROJECT>

@@ -1,0 +1,415 @@
+03.01.2007   10:27:56    Com7  opened at baud 4800   flow 8N1
+03.01.2007   10:27:57    GPS time locked:  082619  (quality=1,  sat_in_use=6)
+03.01.2007   10:27:57    >>> correct to GPS time  082619  and date  030107
+03.01.2007   10:26:19    >>> corrected OK
+03.01.2007   10:29:00    >>> correct to GPS time  082958  and date  030107
+03.01.2007   10:29:58    >>> corrected OK
+03.01.2007   10:30:41    Com7  closed
+03.01.2007   11:39:58    Com7  opened at baud 4800   flow 8N1
+03.01.2007   11:39:59    GPS time locked:  093821  (quality=1,  sat_in_use=8)
+03.01.2007   11:39:59    >>> correct to GPS time  093821  and date  030107
+03.01.2007   11:38:21    >>> corrected OK
+03.01.2007   11:38:37    Com7  closed
+03.01.2007   11:57:03    Com7  opened at baud 4800   flow 8N1
+03.01.2007   11:57:04    GPS time locked:  095526  (quality=1,  sat_in_use=8)
+03.01.2007   11:57:04    >>> correct to GPS time  095526  and date  030107
+03.01.2007   11:55:26    >>> corrected OK
+03.01.2007   11:55:43    *** GPS time unlocked:  timeout
+03.01.2007   11:55:57    *** GPS time unlocked:  quality=0,  sat_in_use=3
+03.01.2007   11:55:58    GPS time locked:  095559  (quality=1,  sat_in_use=8)
+03.01.2007   11:56:42    *** GPS time unlocked:  timeout
+03.01.2007   11:57:02    >>> correct to GPS time  095641  and date  030107
+03.01.2007   11:56:41    >>> corrected OK
+03.01.2007   11:56:41    GPS time locked:  095704  (quality=1,  sat_in_use=8)
+03.01.2007   11:56:41    >>> correct to GPS time  095704  and date  030107
+03.01.2007   11:57:04    >>> corrected OK
+03.01.2007   11:59:04    Com7  closed
+03.01.2007   12:19:11    Com7  opened at baud 4800   flow 8N1
+03.01.2007   12:19:12    GPS time locked:  101912  (quality=1,  sat_in_use=7)
+03.01.2007   12:19:00    >>> correct to GPS time  101934  and date  030107
+03.01.2007   12:19:34    >>> corrected OK
+03.01.2007   12:20:55    *** GPS time unlocked:  quality=1,  sat_in_use=6
+03.01.2007   12:20:56    *** GPS time unlocked:  timeout
+03.01.2007   12:21:52    GPS time locked:  102153  (quality=1,  sat_in_use=6)
+03.01.2007   12:22:06    *** GPS time unlocked:  quality=1,  sat_in_use=7
+03.01.2007   12:22:07    *** GPS time unlocked:  timeout
+03.01.2007   12:22:38    GPS time locked:  102239  (quality=1,  sat_in_use=6)
+03.01.2007   12:23:00    Com7  closed
+03.01.2007   12:31:38    Com7  opened at baud 4800   flow 8N1
+03.01.2007   12:31:39    GPS time locked:  103140  (quality=1,  sat_in_use=8)
+03.01.2007   12:31:00    >>> correct to GPS time  103153  and date  030107
+03.01.2007   12:31:00    >>> corrected OK
+03.01.2007   12:31:00    >>> correct to GPS time  103154  and date  030107
+03.01.2007   12:31:54    >>> corrected OK
+03.01.2007   12:32:00    >>> correct to GPS time  103258  and date  030107
+03.01.2007   12:32:58    >>> corrected OK
+03.01.2007   12:33:12    *** GPS time unlocked:  timeout
+03.01.2007   12:33:29    GPS time locked:  103312  (quality=1,  sat_in_use=5)
+03.01.2007   12:33:30    >>> correct to GPS time  103312  and date  030107
+03.01.2007   12:33:12    >>> corrected OK
+03.01.2007   12:33:12    >>> correct to GPS time  103331  and date  030107
+03.01.2007   12:33:31    >>> corrected OK
+03.01.2007   12:34:57    *** GPS time unlocked:  timeout
+03.01.2007   12:35:28    GPS time locked:  103529  (quality=1,  sat_in_use=4)
+03.01.2007   12:48:42    Com7  closed
+03.01.2007   12:49:22    Com7  opened at baud 4800   flow 8N1
+03.01.2007   12:49:22    GPS time locked:  104923  (quality=1,  sat_in_use=6)
+03.01.2007   12:49:00    >>> correct to GPS time  104937  and date  030107
+03.01.2007   12:49:37    >>> corrected OK
+03.01.2007   12:49:56    *** GPS time unlocked:  timeout
+03.01.2007   12:50:22    GPS time locked:  105023  (quality=1,  sat_in_use=5)
+03.01.2007   12:51:10    *** GPS time unlocked:  timeout
+03.01.2007   12:51:27    GPS time locked:  105128  (quality=1,  sat_in_use=7)
+03.01.2007   12:55:13    *** GPS time unlocked:  quality=1,  sat_in_use=0
+03.01.2007   12:56:16    GPS time locked:  105617  (quality=1,  sat_in_use=4)
+03.01.2007   12:58:48    >>> correct to GPS time  105710  and date  030107
+03.01.2007   12:57:10    >>> corrected OK
+03.01.2007   13:43:48    >>> correct to GPS time  114210  and date  030107
+03.01.2007   13:42:10    >>> corrected OK
+03.01.2007   14:17:50    Com7  closed
+10.01.2007   17:28:41    Com7  opened at baud 4800   flow 8N1
+10.01.2007   17:28:42    GPS time locked:  152657  (quality=1,  sat_in_use=4)
+10.01.2007   17:28:42    >>> correct to GPS time  152657  and date  100107
+10.01.2007   17:26:57    >>> corrected OK
+10.01.2007   17:28:52    *** GPS time unlocked:  timeout
+10.01.2007   17:29:07    *** GPS time unlocked:  quality=0,  sat_in_use=0
+10.01.2007   17:29:14    GPS time locked:  152915  (quality=1,  sat_in_use=4)
+10.01.2007   18:10:41    >>> correct to GPS time  160856  and date  100107
+10.01.2007   18:08:56    >>> corrected OK
+10.01.2007   18:13:18    >>> correct to GPS time  161131  and date  100107
+10.01.2007   18:11:31    >>> corrected OK
+10.01.2007   18:15:51    *** GPS time unlocked:  quality=1,  sat_in_use=0
+10.01.2007   18:15:52    GPS time locked:  161554  (quality=1,  sat_in_use=3)
+10.01.2007   18:17:29    *** GPS time unlocked:  quality=1,  sat_in_use=0
+10.01.2007   18:24:37    GPS time locked:  162531  (quality=1,  sat_in_use=3)
+10.01.2007   18:24:37    >>> correct to GPS time  162531  and date  100107
+10.01.2007   18:25:31    >>> corrected OK
+10.01.2007   18:29:08    *** GPS time unlocked:  quality=1,  sat_in_use=0
+10.01.2007   18:29:30    GPS time locked:  162930  (quality=1,  sat_in_use=3)
+10.01.2007   18:31:57    >>> correct to GPS time  163203  and date  100107
+10.01.2007   18:32:03    >>> corrected OK
+10.01.2007   18:32:04    >>> correct to GPS time  163210  and date  100107
+10.01.2007   18:32:10    >>> corrected OK
+10.01.2007   18:32:11    >>> correct to GPS time  163217  and date  100107
+10.01.2007   18:32:17    >>> corrected OK
+10.01.2007   18:32:18    >>> correct to GPS time  163224  and date  100107
+10.01.2007   18:32:24    >>> corrected OK
+10.01.2007   18:32:25    >>> correct to GPS time  163231  and date  100107
+10.01.2007   18:32:31    >>> corrected OK
+10.01.2007   18:32:32    >>> correct to GPS time  163238  and date  100107
+10.01.2007   18:32:38    >>> corrected OK
+10.01.2007   18:32:39    >>> correct to GPS time  163245  and date  100107
+10.01.2007   18:32:45    >>> corrected OK
+10.01.2007   18:32:46    >>> correct to GPS time  163252  and date  100107
+10.01.2007   18:32:52    >>> corrected OK
+10.01.2007   18:32:53    >>> correct to GPS time  163259  and date  100107
+10.01.2007   18:32:59    >>> corrected OK
+10.01.2007   18:33:00    >>> correct to GPS time  163306  and date  100107
+10.01.2007   18:33:06    >>> corrected OK
+10.01.2007   18:33:07    >>> correct to GPS time  163313  and date  100107
+10.01.2007   18:33:13    >>> corrected OK
+10.01.2007   18:33:14    >>> correct to GPS time  163320  and date  100107
+10.01.2007   18:33:20    >>> corrected OK
+10.01.2007   18:33:21    >>> correct to GPS time  163327  and date  100107
+10.01.2007   18:33:27    >>> corrected OK
+10.01.2007   18:33:28    >>> correct to GPS time  163334  and date  100107
+10.01.2007   18:33:34    >>> corrected OK
+10.01.2007   18:33:35    >>> correct to GPS time  163341  and date  100107
+10.01.2007   18:33:41    >>> corrected OK
+10.01.2007   18:33:42    >>> correct to GPS time  163348  and date  100107
+10.01.2007   18:33:48    >>> corrected OK
+10.01.2007   18:33:49    >>> correct to GPS time  163355  and date  100107
+10.01.2007   18:33:55    >>> corrected OK
+10.01.2007   18:33:56    >>> correct to GPS time  163402  and date  100107
+10.01.2007   18:34:02    >>> corrected OK
+10.01.2007   18:34:03    >>> correct to GPS time  163409  and date  100107
+10.01.2007   18:34:09    >>> corrected OK
+10.01.2007   18:34:10    >>> correct to GPS time  163416  and date  100107
+10.01.2007   18:34:16    >>> corrected OK
+10.01.2007   18:34:17    >>> correct to GPS time  163423  and date  100107
+10.01.2007   18:34:23    >>> corrected OK
+10.01.2007   18:34:24    >>> correct to GPS time  163430  and date  100107
+10.01.2007   18:34:30    >>> corrected OK
+10.01.2007   18:34:31    >>> correct to GPS time  163437  and date  100107
+10.01.2007   18:34:37    >>> corrected OK
+10.01.2007   18:34:38    >>> correct to GPS time  163444  and date  100107
+10.01.2007   18:34:44    >>> corrected OK
+10.01.2007   18:34:45    >>> correct to GPS time  163451  and date  100107
+10.01.2007   18:34:51    >>> corrected OK
+10.01.2007   18:34:52    >>> correct to GPS time  163458  and date  100107
+10.01.2007   18:34:58    >>> corrected OK
+10.01.2007   18:34:59    >>> correct to GPS time  163505  and date  100107
+10.01.2007   18:35:05    >>> corrected OK
+10.01.2007   18:35:06    >>> correct to GPS time  163512  and date  100107
+10.01.2007   18:35:12    >>> corrected OK
+10.01.2007   18:35:13    >>> correct to GPS time  163519  and date  100107
+10.01.2007   18:35:19    >>> corrected OK
+10.01.2007   18:35:20    >>> correct to GPS time  163526  and date  100107
+10.01.2007   18:35:26    >>> corrected OK
+10.01.2007   18:35:27    >>> correct to GPS time  163533  and date  100107
+10.01.2007   18:35:33    >>> corrected OK
+10.01.2007   18:35:34    >>> correct to GPS time  163540  and date  100107
+10.01.2007   18:35:40    >>> corrected OK
+10.01.2007   18:35:41    >>> correct to GPS time  163547  and date  100107
+10.01.2007   18:35:47    >>> corrected OK
+10.01.2007   18:35:48    >>> correct to GPS time  163554  and date  100107
+10.01.2007   18:35:54    >>> corrected OK
+10.01.2007   18:35:55    >>> correct to GPS time  163601  and date  100107
+10.01.2007   18:36:01    >>> corrected OK
+10.01.2007   18:36:02    >>> correct to GPS time  163608  and date  100107
+10.01.2007   18:36:08    >>> corrected OK
+10.01.2007   18:36:09    >>> correct to GPS time  163615  and date  100107
+10.01.2007   18:36:15    >>> corrected OK
+10.01.2007   18:36:16    >>> correct to GPS time  163622  and date  100107
+10.01.2007   18:36:22    >>> corrected OK
+10.01.2007   18:36:23    >>> correct to GPS time  163629  and date  100107
+10.01.2007   18:36:29    >>> corrected OK
+10.01.2007   18:36:30    >>> correct to GPS time  163636  and date  100107
+10.01.2007   18:36:36    >>> corrected OK
+10.01.2007   18:36:37    >>> correct to GPS time  163643  and date  100107
+10.01.2007   18:36:43    >>> corrected OK
+10.01.2007   18:36:44    >>> correct to GPS time  163650  and date  100107
+10.01.2007   18:36:50    >>> corrected OK
+10.01.2007   18:36:51    >>> correct to GPS time  163657  and date  100107
+10.01.2007   18:36:57    >>> corrected OK
+10.01.2007   18:36:58    >>> correct to GPS time  163704  and date  100107
+10.01.2007   18:37:04    >>> corrected OK
+10.01.2007   18:37:05    >>> correct to GPS time  163711  and date  100107
+10.01.2007   18:37:11    >>> corrected OK
+10.01.2007   18:37:12    >>> correct to GPS time  163718  and date  100107
+10.01.2007   18:37:18    >>> corrected OK
+10.01.2007   18:37:19    >>> correct to GPS time  163725  and date  100107
+10.01.2007   18:37:25    >>> corrected OK
+10.01.2007   18:37:26    >>> correct to GPS time  163732  and date  100107
+10.01.2007   18:37:32    >>> corrected OK
+10.01.2007   18:37:33    >>> correct to GPS time  163739  and date  100107
+10.01.2007   18:37:39    >>> corrected OK
+10.01.2007   18:37:40    >>> correct to GPS time  163746  and date  100107
+10.01.2007   18:37:46    >>> corrected OK
+10.01.2007   18:37:47    >>> correct to GPS time  163753  and date  100107
+10.01.2007   18:37:53    >>> corrected OK
+10.01.2007   18:37:54    >>> correct to GPS time  163800  and date  100107
+10.01.2007   18:38:00    >>> corrected OK
+10.01.2007   18:38:01    >>> correct to GPS time  163807  and date  100107
+10.01.2007   18:38:07    >>> corrected OK
+10.01.2007   18:38:08    >>> correct to GPS time  163814  and date  100107
+10.01.2007   18:38:14    >>> corrected OK
+10.01.2007   18:38:15    >>> correct to GPS time  163821  and date  100107
+10.01.2007   18:38:21    >>> corrected OK
+10.01.2007   18:38:22    >>> correct to GPS time  163828  and date  100107
+10.01.2007   18:38:28    >>> corrected OK
+10.01.2007   18:38:29    >>> correct to GPS time  163835  and date  100107
+10.01.2007   18:38:35    >>> corrected OK
+10.01.2007   18:38:36    >>> correct to GPS time  163842  and date  100107
+10.01.2007   18:38:42    >>> corrected OK
+10.01.2007   18:38:43    >>> correct to GPS time  163849  and date  100107
+10.01.2007   18:38:49    >>> corrected OK
+10.01.2007   18:38:50    >>> correct to GPS time  163856  and date  100107
+10.01.2007   18:38:56    >>> corrected OK
+10.01.2007   18:38:57    >>> correct to GPS time  163903  and date  100107
+10.01.2007   18:39:03    >>> corrected OK
+10.01.2007   18:39:04    >>> correct to GPS time  163910  and date  100107
+10.01.2007   18:39:10    >>> corrected OK
+10.01.2007   18:39:11    >>> correct to GPS time  163917  and date  100107
+10.01.2007   18:39:17    >>> corrected OK
+10.01.2007   18:39:18    >>> correct to GPS time  163924  and date  100107
+10.01.2007   18:39:24    >>> corrected OK
+10.01.2007   18:39:25    >>> correct to GPS time  163931  and date  100107
+10.01.2007   18:39:31    >>> corrected OK
+10.01.2007   18:39:32    >>> correct to GPS time  163938  and date  100107
+10.01.2007   18:39:38    >>> corrected OK
+10.01.2007   18:39:39    >>> correct to GPS time  163945  and date  100107
+10.01.2007   18:39:45    >>> corrected OK
+10.01.2007   18:39:46    >>> correct to GPS time  163952  and date  100107
+10.01.2007   18:39:52    >>> corrected OK
+10.01.2007   18:39:53    >>> correct to GPS time  163959  and date  100107
+10.01.2007   18:39:59    >>> corrected OK
+10.01.2007   18:40:00    >>> correct to GPS time  164006  and date  100107
+10.01.2007   18:40:06    >>> corrected OK
+10.01.2007   18:40:07    >>> correct to GPS time  164013  and date  100107
+10.01.2007   18:40:13    >>> corrected OK
+10.01.2007   18:40:14    >>> correct to GPS time  164020  and date  100107
+10.01.2007   18:40:20    >>> corrected OK
+10.01.2007   18:40:21    >>> correct to GPS time  164027  and date  100107
+10.01.2007   18:40:27    >>> corrected OK
+10.01.2007   18:40:28    >>> correct to GPS time  164034  and date  100107
+10.01.2007   18:40:34    >>> corrected OK
+10.01.2007   18:40:35    >>> correct to GPS time  164041  and date  100107
+10.01.2007   18:40:41    >>> corrected OK
+10.01.2007   18:40:42    >>> correct to GPS time  164048  and date  100107
+10.01.2007   18:40:48    >>> corrected OK
+10.01.2007   18:40:49    >>> correct to GPS time  164055  and date  100107
+10.01.2007   18:40:55    >>> corrected OK
+10.01.2007   18:40:56    >>> correct to GPS time  164102  and date  100107
+10.01.2007   18:41:02    >>> corrected OK
+10.01.2007   18:41:03    >>> correct to GPS time  164109  and date  100107
+10.01.2007   18:41:09    >>> corrected OK
+10.01.2007   18:41:10    >>> correct to GPS time  164116  and date  100107
+10.01.2007   18:41:16    >>> corrected OK
+10.01.2007   18:41:17    >>> correct to GPS time  164123  and date  100107
+10.01.2007   18:41:23    >>> corrected OK
+10.01.2007   18:41:24    >>> correct to GPS time  164130  and date  100107
+10.01.2007   18:41:30    >>> corrected OK
+10.01.2007   18:41:31    >>> correct to GPS time  164137  and date  100107
+10.01.2007   18:41:37    >>> corrected OK
+10.01.2007   18:41:38    >>> correct to GPS time  164144  and date  100107
+10.01.2007   18:41:44    >>> corrected OK
+10.01.2007   18:41:45    >>> correct to GPS time  164151  and date  100107
+10.01.2007   18:41:51    >>> corrected OK
+10.01.2007   18:41:52    >>> correct to GPS time  164158  and date  100107
+10.01.2007   18:41:58    >>> corrected OK
+10.01.2007   18:41:59    >>> correct to GPS time  164205  and date  100107
+10.01.2007   18:42:05    >>> corrected OK
+10.01.2007   18:42:06    >>> correct to GPS time  164212  and date  100107
+10.01.2007   18:42:12    >>> corrected OK
+10.01.2007   18:42:13    >>> correct to GPS time  164219  and date  100107
+10.01.2007   18:42:19    >>> corrected OK
+10.01.2007   18:42:20    >>> correct to GPS time  164226  and date  100107
+10.01.2007   18:42:26    >>> corrected OK
+10.01.2007   18:42:27    >>> correct to GPS time  164233  and date  100107
+10.01.2007   18:42:33    >>> corrected OK
+10.01.2007   18:42:34    >>> correct to GPS time  164240  and date  100107
+10.01.2007   18:42:40    >>> corrected OK
+10.01.2007   18:42:41    >>> correct to GPS time  164247  and date  100107
+10.01.2007   18:42:47    >>> corrected OK
+10.01.2007   18:42:48    >>> correct to GPS time  164254  and date  100107
+10.01.2007   18:42:54    >>> corrected OK
+10.01.2007   18:42:55    >>> correct to GPS time  164301  and date  100107
+10.01.2007   18:43:01    >>> corrected OK
+10.01.2007   18:43:02    >>> correct to GPS time  164308  and date  100107
+10.01.2007   18:43:08    >>> corrected OK
+10.01.2007   18:43:09    >>> correct to GPS time  164315  and date  100107
+10.01.2007   18:43:15    >>> corrected OK
+10.01.2007   18:43:16    >>> correct to GPS time  164322  and date  100107
+10.01.2007   18:43:22    >>> corrected OK
+10.01.2007   18:43:23    >>> correct to GPS time  164329  and date  100107
+10.01.2007   18:43:29    >>> corrected OK
+10.01.2007   18:43:30    >>> correct to GPS time  164336  and date  100107
+10.01.2007   18:43:36    >>> corrected OK
+10.01.2007   18:43:37    >>> correct to GPS time  164343  and date  100107
+10.01.2007   18:43:43    >>> corrected OK
+10.01.2007   18:43:44    >>> correct to GPS time  164350  and date  100107
+10.01.2007   18:43:50    >>> corrected OK
+10.01.2007   18:43:51    >>> correct to GPS time  164357  and date  100107
+10.01.2007   18:43:57    >>> corrected OK
+10.01.2007   18:43:58    >>> correct to GPS time  164404  and date  100107
+10.01.2007   18:44:04    >>> corrected OK
+10.01.2007   18:44:05    >>> correct to GPS time  164411  and date  100107
+10.01.2007   18:44:11    >>> corrected OK
+10.01.2007   18:44:12    >>> correct to GPS time  164418  and date  100107
+10.01.2007   18:44:18    >>> corrected OK
+10.01.2007   18:44:19    >>> correct to GPS time  164425  and date  100107
+10.01.2007   18:44:25    >>> corrected OK
+10.01.2007   18:44:26    >>> correct to GPS time  164432  and date  100107
+10.01.2007   18:44:32    >>> corrected OK
+10.01.2007   18:44:33    >>> correct to GPS time  164439  and date  100107
+10.01.2007   18:44:39    >>> corrected OK
+10.01.2007   18:44:40    >>> correct to GPS time  164446  and date  100107
+10.01.2007   18:44:46    >>> corrected OK
+10.01.2007   18:44:47    >>> correct to GPS time  164453  and date  100107
+10.01.2007   18:44:53    >>> corrected OK
+10.01.2007   18:44:54    >>> correct to GPS time  164500  and date  100107
+10.01.2007   18:45:00    >>> corrected OK
+10.01.2007   18:45:01    >>> correct to GPS time  164507  and date  100107
+10.01.2007   18:45:07    >>> corrected OK
+10.01.2007   18:45:08    >>> correct to GPS time  164514  and date  100107
+10.01.2007   18:45:14    >>> corrected OK
+10.01.2007   18:45:15    >>> correct to GPS time  164521  and date  100107
+10.01.2007   18:45:21    >>> corrected OK
+10.01.2007   18:45:22    >>> correct to GPS time  164528  and date  100107
+10.01.2007   18:45:28    >>> corrected OK
+10.01.2007   18:45:29    >>> correct to GPS time  164535  and date  100107
+10.01.2007   18:45:35    >>> corrected OK
+10.01.2007   18:45:36    >>> correct to GPS time  164542  and date  100107
+10.01.2007   18:45:42    >>> corrected OK
+10.01.2007   18:45:43    >>> correct to GPS time  164549  and date  100107
+10.01.2007   18:45:49    >>> corrected OK
+10.01.2007   18:45:50    >>> correct to GPS time  164556  and date  100107
+10.01.2007   18:45:56    >>> corrected OK
+10.01.2007   18:45:57    >>> correct to GPS time  164603  and date  100107
+10.01.2007   18:46:03    >>> corrected OK
+10.01.2007   18:46:04    >>> correct to GPS time  164610  and date  100107
+10.01.2007   18:46:10    >>> corrected OK
+10.01.2007   18:46:11    >>> correct to GPS time  164617  and date  100107
+10.01.2007   18:46:17    >>> corrected OK
+10.01.2007   18:46:18    >>> correct to GPS time  164624  and date  100107
+10.01.2007   18:46:24    >>> corrected OK
+10.01.2007   18:46:25    >>> correct to GPS time  164631  and date  100107
+10.01.2007   18:46:31    >>> corrected OK
+10.01.2007   18:46:32    >>> correct to GPS time  164638  and date  100107
+10.01.2007   18:46:38    >>> corrected OK
+10.01.2007   18:46:39    >>> correct to GPS time  164645  and date  100107
+10.01.2007   18:46:45    >>> corrected OK
+10.01.2007   18:46:46    >>> correct to GPS time  164652  and date  100107
+10.01.2007   18:46:52    >>> corrected OK
+10.01.2007   18:46:53    >>> correct to GPS time  164659  and date  100107
+10.01.2007   18:46:59    >>> corrected OK
+10.01.2007   18:47:00    >>> correct to GPS time  164706  and date  100107
+10.01.2007   18:47:06    >>> corrected OK
+10.01.2007   18:47:07    >>> correct to GPS time  164713  and date  100107
+10.01.2007   18:47:13    >>> corrected OK
+10.01.2007   18:47:14    >>> correct to GPS time  164720  and date  100107
+10.01.2007   18:47:20    >>> corrected OK
+10.01.2007   18:47:21    >>> correct to GPS time  164727  and date  100107
+10.01.2007   18:47:27    >>> corrected OK
+10.01.2007   18:47:28    >>> correct to GPS time  164734  and date  100107
+10.01.2007   18:47:34    >>> corrected OK
+10.01.2007   18:47:35    >>> correct to GPS time  164741  and date  100107
+10.01.2007   18:47:41    >>> corrected OK
+10.01.2007   18:47:42    >>> correct to GPS time  164748  and date  100107
+10.01.2007   18:47:48    >>> corrected OK
+10.01.2007   18:47:49    >>> correct to GPS time  164755  and date  100107
+10.01.2007   18:47:55    >>> corrected OK
+10.01.2007   18:47:56    >>> correct to GPS time  164802  and date  100107
+10.01.2007   18:48:02    >>> corrected OK
+10.01.2007   18:48:03    >>> correct to GPS time  164809  and date  100107
+10.01.2007   18:48:09    >>> corrected OK
+10.01.2007   18:48:10    >>> correct to GPS time  164816  and date  100107
+10.01.2007   18:48:16    >>> corrected OK
+10.01.2007   18:48:17    >>> correct to GPS time  164823  and date  100107
+10.01.2007   18:48:23    >>> corrected OK
+10.01.2007   18:48:24    >>> correct to GPS time  164830  and date  100107
+10.01.2007   18:48:30    >>> corrected OK
+10.01.2007   18:48:31    >>> correct to GPS time  164837  and date  100107
+10.01.2007   18:48:37    >>> corrected OK
+10.01.2007   18:48:38    >>> correct to GPS time  164844  and date  100107
+10.01.2007   18:48:44    >>> corrected OK
+10.01.2007   18:48:45    >>> correct to GPS time  164851  and date  100107
+10.01.2007   18:48:51    >>> corrected OK
+10.01.2007   18:48:52    >>> correct to GPS time  164858  and date  100107
+10.01.2007   18:48:58    >>> corrected OK
+10.01.2007   18:48:59    Com7  closed
+26.09.2008   15:17:20    Com7  opened at baud 4800   flow 8N1
+26.09.2008   15:17:31    Com7  closed
+26.09.2008   15:20:27    Com7  opened at baud 4800   flow 8N1
+26.09.2008   15:21:11    Com7  closed
+26.09.2008   15:21:59    Com7  opened at baud 4800   flow 8N1
+26.09.2008   15:22:23    Com7  closed
+26.09.2008   15:25:20    Com7  opened at baud 4800   flow 8N1
+26.09.2008   15:25:27    Com7  closed
+26.09.2008   17:56:08    Com7  opened at baud 4800   flow 8N1
+26.09.2008   17:57:10    Com7  closed
+26.09.2008   17:58:59    Com7  opened at baud 4800   flow 8N1
+26.09.2008   17:58:59    *** GPS time unlocked:  quality=0,  sat_in_use=0
+26.09.2008   18:00:38    *** GPS time unlocked:  timeout
+26.09.2008   18:00:43    *** GPS time unlocked:  quality=0,  sat_in_use=0
+26.09.2008   18:03:05    GPS time locked:  150305  (quality=1,  sat_in_use=3)
+26.09.2008   18:05:54    *** GPS time unlocked:  timeout
+26.09.2008   18:10:10    Com7  closed
+26.09.2008   18:10:26    Com7  opened at baud 4800   flow 8N1
+26.09.2008   18:10:50    *** GPS time unlocked:  quality=0,  sat_in_use=0
+26.09.2008   18:11:01    GPS time locked:  151101  (quality=1,  sat_in_use=3)
+26.09.2008   18:11:30    *** GPS time unlocked:  quality=0,  sat_in_use=0
+26.09.2008   18:11:31    GPS time locked:  151131  (quality=1,  sat_in_use=3)
+26.09.2008   18:14:40    *** GPS time unlocked:  quality=0,  sat_in_use=0
+26.09.2008   18:14:41    GPS time locked:  151441  (quality=1,  sat_in_use=3)
+26.09.2008   18:14:44    *** GPS time unlocked:  quality=0,  sat_in_use=0
+26.09.2008   18:17:51    *** GPS time unlocked:  timeout
+26.09.2008   18:21:01    *** GPS time unlocked:  quality=0,  sat_in_use=0
+26.09.2008   18:24:48    GPS time locked:  152448  (quality=1,  sat_in_use=3)
+26.09.2008   18:26:04    *** GPS time unlocked:  quality=0,  sat_in_use=0
+26.09.2008   18:26:05    GPS time locked:  152605  (quality=1,  sat_in_use=3)
+26.09.2008   18:26:06    *** GPS time unlocked:  quality=0,  sat_in_use=0
+26.09.2008   18:26:24    *** GPS time unlocked:  timeout
+26.09.2008   18:26:40    GPS time locked:  152640  (quality=1,  sat_in_use=4)
+26.09.2008   18:29:29    Com7  closed

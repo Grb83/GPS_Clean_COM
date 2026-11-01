@@ -1,0 +1,10 @@
+USEUNIT("GpsTime.cpp");
+USEUNIT("GpsPollThread.cpp");
+USELIB("PCOMMB.LIB");
+USEUNIT("Logging\LogMessage.cpp");
+USEUNIT("TimeControlThread.cpp");
+USEUNIT("Logging\ShareMem.cpp");
+//---------------------------------------------------------------------------
+This file is used by the project manager only and should be treated like the project file
+
+main

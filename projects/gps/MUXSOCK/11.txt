@@ -1,0 +1,1 @@
+[C++ Warning] ComServerSocket.cpp(178): W8012 Comparing signed and unsigned values

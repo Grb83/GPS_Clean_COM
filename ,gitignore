@@ -1,0 +1,12 @@
+# C++ Builder 6 temporary files
+*.obj
+*.tds
+*.~*
+*.ilc
+*.ild
+*.ilf
+*.ils
+*.map
+*.csm
+*.log
+obj/

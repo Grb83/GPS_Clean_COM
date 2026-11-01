@@ -1,0 +1,698 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#include <dos.h>
+#include <fcntl.h>
+#include<sys\stat.h>
+#include <math.h>
+
+#include<io.h>
+#include <IniFiles.hpp>
+
+#include "ComServerSocket.h"
+#include "ComServerException.h"
+
+#pragma hdrstop
+
+#include "main_thread.h"
+
+#include "double_base_serv.h"
+
+#include "AvcTime.h"
+
+//---------------------------------------------------------------------------
+
+#pragma package(smart_init)
+
+static int StDiffVal;
+
+const int POSSIBLE_TIME_DIFF = 30;
+const int LIMIT_TIME_DIFF = 1800;
+const int LBOUND_DAY_TIME_CORR = 7;
+const int HBOUND_DAY_TIME_CORR = 21;
+
+
+//Нумер от 0
+//const int DATE_FIELD_NUMBER = 2;
+//const int TIME_FIELD_NUMBER = 3;
+//const int RESEIVE_FIELD_NUMBER = 10;
+// Константы для $GPRMC
+const int TIME_FIELD_NUMBER = 0;      // Время идет первым (было 3)
+const int RESEIVE_FIELD_NUMBER = 1;   // Статус (A/V) идет вторым (было 10)
+const int DATE_FIELD_NUMBER = 8;      // Дата идет девятой (было 2)
+//e Нумер от 0
+
+const int BODY_PACK_MAX_CHARS = 1000;
+
+static int StNotReadNum;
+static int StReadResult;
+static int StMemReadResult;
+
+static TWrkStr StResdTime;
+static TWrkStr StResdDate;
+
+const int FIELD_READ_MAX_CHARS = 100;
+
+const int OK_READ_READ_RESULT = 1;
+const int NOT_READ_READ_RESULT = 3;
+const int SOCKET_ERROR_READ_RESULT = 4;
+const int PACK_FORMAT_ERROR_READ_RESULT = 5;
+const int FIELD_FORMAT_ERROR_READ_RESULT = 6;
+const int EMPTY_FIELD_READ_RESULT = 7;
+const int NO_RESEIVE_READ_RESULT = 8;
+const int CONVERT_ERROR_READ_RESULT = 9;
+const int NOTHING_READ_RESULT = 10;
+const int LIMIT_DIFF_EXC_READ_RESULT = 11;
+
+
+void Init();
+DWORD MainCycleThread(LPDWORD lpdwParam);
+
+static char InitStr[ 256 ];
+
+static int CURRENT_PORT;
+static AStr BaudRate;
+static AStr lParity;
+static AStr StopBit;
+static AStr MData;
+static int TimeOut;
+
+static int PossibleTimeDiff;
+static int LimitTimeDiff;
+
+static int LBoundDayTimeCorr;
+static int HBoundDayTimeCorr;
+
+static TDateTime GPSDT;
+
+static char CallStr[ 256 ];
+static char HookStr[ 256 ];
+
+static bool fContinue;
+
+static HANDLE hMainThread = NULL;       // Handle to thread implementing MainForm cycle
+
+const int ByteArrSize = 512;
+
+typedef byte ByteArray[ ByteArrSize ];
+
+static int StNextAnalCharNumb;
+
+static ByteArray StCmdBuffer;
+static TWrkStr StFieldResult;
+static TWrkStr StPackBody;
+
+static TSocket* Socket;
+
+void ReadPacket();
+
+void AnalPacket();
+
+int Server_Start(void)
+{
+  hMainThread = NULL;
+
+  AStr prStr = "";
+  PutLogFileNoT( prStr );
+
+  prStr = "Начало работы.";
+  PutLogFile( prStr );
+
+  DWORD dwThreadId;
+
+  try
+  {
+
+    Init();
+
+    hMainThread = CreateThread(
+       NULL,                                     /* no security attributes */
+       0,                                        /* use default stack size */
+       (LPTHREAD_START_ROUTINE) MainCycleThread, /* thread function */
+       NULL,                                     /* argument to thread function */
+       CREATE_SUSPENDED,                         /* creation flags */
+       &dwThreadId);                             /* returns the thread identifier */
+
+  }
+  catch( ... )
+  {
+    hMainThread = NULL;
+  }
+
+  if ( hMainThread )
+    if ( ResumeThread(hMainThread) != 1 )
+      hMainThread = NULL;
+  return 1;
+}
+
+void Server_Stop(void)
+{
+  //Деиниц
+  fContinue=TRUE;
+  if (hMainThread)
+    WaitForSingleObject(hMainThread, INFINITE);
+  //е Деиниц
+
+  AStr prStr = "Конец работы.";
+  PutLogFile( prStr );
+}
+
+void TimeConvert()
+{
+  TDateTime prDT;
+
+  try
+  {
+    TWrkStr prStr = "00.00.2000 00:00:00";
+
+    prStr[ 0 ] = StResdDate[ 0 ];
+    prStr[ 1 ] = StResdDate[ 1 ];
+    prStr[ 3 ] = StResdDate[ 2 ];
+    prStr[ 4 ] = StResdDate[ 3 ];
+    prStr[ 8 ] = StResdDate[ 4 ];
+    prStr[ 9 ] = StResdDate[ 5 ];
+
+    prStr[ 11 ] = StResdTime[ 0 ];
+    prStr[ 12 ] = StResdTime[ 1 ];
+    prStr[ 14 ] = StResdTime[ 2 ];
+    prStr[ 15 ] = StResdTime[ 3 ];
+    prStr[ 17 ] = StResdTime[ 4 ];
+    prStr[ 18 ] = StResdTime[ 5 ];
+
+    AStr prMemLongTimeFormat = LongTimeFormat;
+    LongTimeFormat = "hh:mm:ss";
+
+    AStr prMemShortDateFormat = ShortDateFormat;
+    ShortDateFormat = "dd.mm.yyyy";
+
+    prDT = StrToDateTime( prStr );
+
+    LongTimeFormat = prMemLongTimeFormat;
+    ShortDateFormat = prMemShortDateFormat;
+
+  }
+  catch( ... )
+  {
+    StReadResult = FIELD_FORMAT_ERROR_READ_RESULT;
+  }
+  if ( OK_READ_READ_RESULT == StReadResult )
+  {
+    GPSDT = prDT;
+    GPSDT -= SEC_DT * _timezone;
+
+    time_t prTimeT = avc_time();
+    tm* prTM = avc_localtime( &prTimeT );
+    double prDLight = prTM->tm_isdst * HOUR_DT;
+    GPSDT += prDLight;
+
+    /*temp
+    TIME_ZONE_INFORMATION prTZI;
+    GetTimeZoneInformation
+    (
+      &prTZI
+    );
+    double prDLight = prTZI.DaylightBias * MIN_DT;
+    GPSDT -= prDLight;
+    */
+
+    TDateTime prNow = Now();
+
+    if ( fabs( GPSDT - prNow ) > LimitTimeDiff * SEC_DT )
+    {
+      StDiffVal = ( fabs( GPSDT - prNow ) ) / SEC_DT;
+      StReadResult = LIMIT_DIFF_EXC_READ_RESULT;
+    }
+  }
+};
+
+void TimeCorrect()
+{
+  //Допустимый диапазон корркции времени
+  double prPart = GPSDT - floor( GPSDT );
+  if
+  (
+    ( prPart > LBoundDayTimeCorr * HOUR_DT )
+    &&
+    ( prPart < HBoundDayTimeCorr * HOUR_DT )
+  )
+  //e Допустимый диапазон корркции времени
+  {
+    TDateTime prNow = Now();
+    if ( fabs( GPSDT - prNow ) > PossibleTimeDiff * SEC_DT )
+    {
+      struct date prDate;
+
+      USHORT prYear, prMonth, prDay;
+
+      GPSDT.DecodeDate( &prYear, &prMonth, &prDay );
+
+      prDate.da_year = prYear;
+      prDate.da_mon = prMonth;
+      prDate.da_day = prDay;
+
+      setdate(&prDate);
+
+      USHORT prHour, prMin, prSec, prMSec;
+      GPSDT.DecodeTime( &prHour, &prMin, &prSec, &prMSec);
+
+      struct time prT;
+      prT.ti_hour = prHour;
+      prT.ti_min = prMin;
+      prT.ti_sec = prSec;
+      prT.ti_hund = 0;
+      settime( &prT );
+
+      AStr prStr
+        =
+        "Произведена коррекция времени. Было: "
+        +
+        DateTimeToStr( prNow )
+        +
+        " стало: "
+        +
+        DateTimeToStr( GPSDT )
+        ;
+      PutLogFile( prStr );
+    };
+  }
+};
+
+void ResProt()
+{
+  if
+  (
+    ( NOT_READ_READ_RESULT == StReadResult )
+    &&
+    ( NOT_READ_READ_RESULT == StMemReadResult )
+  )
+    StNotReadNum++;
+  else
+    StNotReadNum = 0;
+
+  AStr prStr;
+
+  if
+  (
+    ( StMemReadResult != StReadResult )
+    &&
+    (
+      (
+       ( NOT_READ_READ_RESULT == StReadResult )
+       &&
+       StNotReadNum > 2000
+      )
+      ||
+      (
+       ( NOT_READ_READ_RESULT != StReadResult )
+      )
+    )
+  )
+  {
+    switch ( StReadResult )
+    {
+      case OK_READ_READ_RESULT:
+        prStr = "Успешное чтение пакетов с данными.";
+        PutLogFile( prStr );
+        break;
+      case NOT_READ_READ_RESULT:
+        prStr = "Ожидаемый пакет не приходит (" + IntToStr( StNotReadNum ) + " раз ).";
+        PutLogFile( prStr );
+        break;
+      case SOCKET_ERROR_READ_RESULT:
+        prStr = "Ошибка работы сокета: не поступают данные.";
+        PutLogFile( prStr );
+        break;
+      case PACK_FORMAT_ERROR_READ_RESULT:
+        prStr = "Ошибка формата пакета.";
+        PutLogFile( prStr );
+        break;
+      case FIELD_FORMAT_ERROR_READ_RESULT:
+        prStr = "Ошибка формата поля пакета.";
+        PutLogFile( prStr );
+        break;
+      case EMPTY_FIELD_READ_RESULT:
+        prStr = "Требуемое поле пусто (отстутствует связь с сателлитом).";
+        PutLogFile( prStr );
+        break;
+      case NO_RESEIVE_READ_RESULT:
+        prStr = "Отстутствует связь с сателлитом.";
+        PutLogFile( prStr );
+        break;
+      case CONVERT_ERROR_READ_RESULT:
+        prStr = "Ошибка преобразования поля.";
+        PutLogFile( prStr );
+        break;
+      case LIMIT_DIFF_EXC_READ_RESULT:
+        prStr
+          =
+          "Расхождение времени ("
+          +
+          IntToStr( StDiffVal )
+          +
+          " сек.) превышает предельную величину."
+          ;
+        PutLogFile( prStr );
+        break;
+    }
+    StMemReadResult = StReadResult;
+  }
+}
+
+DWORD MainCycleThread(LPDWORD lpdwParam)
+{
+  StMemReadResult = NOTHING_READ_RESULT;
+  while ( !fContinue )
+  {
+    StReadResult = OK_READ_READ_RESULT;
+    //Читаем пакет.
+    ReadPacket();
+    //e Читаем пакет.
+    if ( OK_READ_READ_RESULT == StReadResult )
+    {
+      AnalPacket();
+      if ( OK_READ_READ_RESULT == StReadResult )
+        TimeConvert();
+    }
+    //Анализ рез-та
+    ResProt();
+    //e Анализ рез-та
+    //Корректирование времени
+    if ( OK_READ_READ_RESULT == StReadResult )
+      TimeCorrect();
+    //e Корректирование времени
+    Sleep( 1000 );
+  };
+  try
+  {
+    Socket->Close();
+    AStr prStr = "Закрыт порт № " + IntToStr( CURRENT_PORT );
+    PutLogFile( prStr );
+  }
+  catch (ESocket &eSoc)
+  {
+    AStr prStr = "Ошибка сокета: " + eSoc.Message;
+    PutLogFile( prStr );
+  };
+  delete Socket;
+  return 0;
+}
+
+void __fastcall PutLogFileNoT( AStr PPStr )
+{
+  UniPutLogFile( PPStr, FALSE );
+}
+void __fastcall PutLogFile( AStr PPStr )
+{
+  UniPutLogFile( PPStr, TRUE );
+}
+
+void __fastcall UniPutLogFile( AStr PPStr, bool PPIsT )
+{
+  bool lbIsContWork = TRUE;
+  int prLogFileH;
+  //Проток
+  TWrkStr fullName;
+  AStr prMStr;
+
+  AStr prStr = ExtractFilePath(Application->ExeName) + "csrvgps.log";
+  strcpy( fullName, prStr.c_str() );
+  if
+  (
+    (
+      prLogFileH
+      =
+      open
+      (
+        fullName
+        ,
+        O_RDWR
+        |
+        O_CREAT
+        |
+        O_TEXT
+        |
+        O_APPEND
+        ,
+        S_IREAD|S_IWRITE
+      )
+    )
+    ==
+    -1
+  )
+    lbIsContWork = FALSE;
+  if ( lbIsContWork )
+  {
+    if ( PPIsT )
+      prMStr = DateTimeToStr( Now() ) + " - " + PPStr + "\n";
+    else
+      prMStr = PPStr + "\n";
+
+    write( prLogFileH, prMStr.c_str(), strlen( prMStr.c_str() ) );
+    close( prLogFileH );
+  }
+  //e Проток
+};
+
+void Init()
+{
+  //Чтение ini-файла
+  if ( FileExists( ExtractFilePath(Application->ExeName) + "csrvgps.INI") )
+  {
+    // Чтение параметров COM порта
+    TIniFile* IniFle = new TIniFile( ExtractFilePath(Application->ExeName) + "csrvgps.INI" );
+
+    CURRENT_PORT = IniFle->ReadInteger("CONFIG", "LISTEN PORT", 4);
+    BaudRate = IniFle->ReadString("CONFIG", "BAUD RATE", "4800");
+    lParity = IniFle->ReadString("CONFIG", "PARITY", "N");
+    StopBit = IniFle->ReadString("CONFIG", "STOP BIT", "1");
+    MData = IniFle->ReadString("CONFIG", "DATA", "8");
+    TimeOut = 1000 * ( IniFle->ReadInteger("CONFIG", "TIMEOUT", 2) );
+
+    PossibleTimeDiff = IniFle->ReadInteger("CONFIG", "POSSIBLE_TIME_DIFF", POSSIBLE_TIME_DIFF);
+    LimitTimeDiff = IniFle->ReadInteger("CONFIG", "LIMIT_TIME_DIFF", LIMIT_TIME_DIFF);
+
+    LBoundDayTimeCorr = IniFle->ReadInteger("CONFIG", "LBOUND_DAY_TIME_CORR", LBOUND_DAY_TIME_CORR);
+    HBoundDayTimeCorr = IniFle->ReadInteger("CONFIG", "HBOUND_DAY_TIME_CORR", HBOUND_DAY_TIME_CORR);
+
+    delete IniFle;
+    //e
+  };
+  //e Чтение ini-файла
+
+  StNotReadNum = 0;
+
+  memset( CallStr, 0x0 , sizeof( CallStr ) );
+  memset( HookStr, 0x0 , sizeof( HookStr ) );
+
+	Socket = new TSocket();
+
+  DCB lDCB;
+
+  AStr InitAStr;
+  InitAStr = "baud=" + BaudRate + " parity=" + lParity + " data=" +
+    MData + " stop=" + StopBit;
+
+  strcpy( InitStr, InitAStr.c_str() );
+
+  BuildCommDCB( InitStr, &lDCB );
+
+  Socket->usNumCom =(unsigned short)CURRENT_PORT;
+  //!!!испр в раб 2003 05 10
+  Socket->usBaud	  =(unsigned long)( StrToInt( BaudRate ) );
+  //e
+  char prChar = ( lParity.c_str() )[ 0 ];
+  if ( 'N' == prChar )
+    Socket->bParity = 0;
+  else if ( 'E' == prChar )
+    Socket->bParity = 1;
+  else if ( 'O' == prChar )
+    Socket->bParity = 2;
+  Socket->usData	  =(unsigned short)( StrToInt( MData ) );
+  Socket->usStop	  =(unsigned short)( StrToInt( StopBit ) );
+  /*Socket->bProtocol = SOCK_PROT_NON;
+  Socket->usType = ASDU_SOCK;
+  Socket->usAddr = 0;
+  Socket->usFlowCtrl = FLCTRL_NON;
+  Socket->cTypeChanel = CH_RS232;//Указатель на тип канала 0 - RS232;1 -	RS485;2 - Модем Коммут.;
+  strcpy( Socket->sCallStr, CallStr );
+  strcpy( Socket->sHookStr, HookStr );
+  memcpy( &(Socket->dcb), &lDCB, sizeof(Socket->dcb) );*/
+
+  try
+  {
+    Socket->Open();
+    fContinue = FALSE;
+    AStr prStr = "Открыт порт № " + IntToStr( CURRENT_PORT );
+    PutLogFile( prStr );
+  }
+  catch (ESocket &eSoc)
+  {
+    fContinue = TRUE;
+    AStr prStr = "Ошибка сокета: " + eSoc.Message;
+    PutLogFile( prStr );
+  }
+}
+
+void ReadField()
+{
+  char prChar;
+  int i;
+  for ( i = 0; i < FIELD_READ_MAX_CHARS; i++ )
+  {
+    prChar = StPackBody[ StNextAnalCharNumb ];
+    if( ',' == prChar )
+    {
+      StFieldResult[ i ] = '\0';
+      StNextAnalCharNumb++;
+      break;
+    }
+    else
+    {
+      StFieldResult[ i ] = prChar;
+      StNextAnalCharNumb++;
+    }
+  }
+  if ( FIELD_READ_MAX_CHARS - 1 == i )
+    StReadResult = FIELD_FORMAT_ERROR_READ_RESULT;
+}
+
+void AnalPacket()
+{
+  StNextAnalCharNumb = 0;
+  for ( int i = 0; i < 11; i++ )
+  {
+    ReadField();
+    if ( OK_READ_READ_RESULT == StReadResult )
+    {
+      switch( i )
+      {
+        case DATE_FIELD_NUMBER:
+          if ( 0 == strlen( StFieldResult ) )
+            StReadResult = EMPTY_FIELD_READ_RESULT;
+          else
+            strcpy( StResdDate, StFieldResult );
+          break;
+        case TIME_FIELD_NUMBER:
+          if ( 0 == strlen( StFieldResult ) )
+            StReadResult = EMPTY_FIELD_READ_RESULT;
+          else
+            strcpy( StResdTime, StFieldResult );
+          break;
+        case RESEIVE_FIELD_NUMBER:
+          if ( 0 == strlen( StFieldResult ) )
+            StReadResult = EMPTY_FIELD_READ_RESULT;
+          else
+          {
+            // В GPRMC статус: 'A' = Data Valid, 'V' = Navigation Receiver Warning
+            // Если приемник на окне и не ловит спутники, будет 'V'.
+            // Для строгой проверки раскомментируй строку ниже:
+
+            if ( StFieldResult[0] != 'A' ) StReadResult = NO_RESEIVE_READ_RESULT;
+
+            // Если нужно синхронизировать время ДАЖЕ если спутники не пойманы
+            // (но время в NMEA идет), можно закомментировать проверку выше.
+            // Но лучше вынести антенну на улицу, чтобы пошла буква 'A'.
+          }
+          break;
+      }
+    }//ok чтен
+    if ( OK_READ_READ_RESULT != StReadResult )
+      break;
+  }//for
+}
+
+void SinckrRead( char PPCh )
+{
+  Word CountByte;
+  char prChar;
+
+  StCmdBuffer[ 0 ] = 0;
+  CountByte = Socket->ReadEx(  StCmdBuffer, 1, TimeOut );
+  if( 1 == CountByte )
+  {
+    prChar = StCmdBuffer[ 0 ];
+    if( PPCh != prChar )
+      StReadResult = NOT_READ_READ_RESULT;
+  }
+  else
+    StReadResult = SOCKET_ERROR_READ_RESULT;
+}
+
+void ReadPacketBody()
+{
+  Word CountByte;
+  char prChar;
+  int i;
+  for ( i = 0; i < BODY_PACK_MAX_CHARS; i++ )
+  {
+    StCmdBuffer[ 0 ] = 0;
+    CountByte = Socket->ReadEx(  StCmdBuffer, 1, TimeOut );
+    if( 1 == CountByte )
+    {
+      prChar = StCmdBuffer[ 0 ];
+      if( 0x0A == prChar )
+      {
+        StPackBody[ i ] = '\0';
+        break;
+      }
+      else
+      {
+        StPackBody[ i ] = prChar;
+      }
+    }
+    else
+    {
+      StReadResult = SOCKET_ERROR_READ_RESULT;
+      break;
+    }
+  }
+  if ( BODY_PACK_MAX_CHARS - 1 == i )
+    StReadResult = PACK_FORMAT_ERROR_READ_RESULT;
+}
+
+void ReadPacket()
+{
+  Word CountByte;
+  memset( StCmdBuffer, 0x0 , sizeof( StCmdBuffer ) );
+  try
+  {
+    Socket->Clear();      //Очищаем входную очередь сокета.
+
+    // Внутри ReadPacket()
+    SinckrRead( '$' );
+    if ( OK_READ_READ_RESULT == StReadResult )
+    {
+      SinckrRead( 'G' ); // Было 'P'
+      if ( OK_READ_READ_RESULT == StReadResult )
+      {
+        SinckrRead( 'P' ); // Было 'G'
+        if ( OK_READ_READ_RESULT == StReadResult )
+        {
+          SinckrRead( 'R' ); // Осталось 'R'
+          if ( OK_READ_READ_RESULT == StReadResult )
+          {
+            SinckrRead( 'M' ); // Осталось 'M'
+            if ( OK_READ_READ_RESULT == StReadResult )
+            {
+              SinckrRead( 'C' ); // Было 'F' -> меняем на 'C' ($GPRMC)
+              if ( OK_READ_READ_RESULT == StReadResult )
+              {
+                SinckrRead( ',' );
+                if ( OK_READ_READ_RESULT == StReadResult )
+                  //Читаем остальную часть пакета
+                  ReadPacketBody();
+                  //e Читаем остальную часть пакета
+              }//С
+            }//M
+          }//R
+        }//P
+      }//G
+    }//$
+  }
+  catch (ESocket &eSoc)
+  {
+    StReadResult = SOCKET_ERROR_READ_RESULT;
+    AStr prStr = "Ошибка чтения сокета: " + eSoc.Message;
+    PutLogFile( prStr );
+  };
+}
