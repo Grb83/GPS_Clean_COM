@@ -358,7 +358,7 @@ void ResProt()
   }
 }
 
-DWORD MainCycleThread(LPDWORD lpdwParam)
+/*DWORD MainCycleThread(LPDWORD lpdwParam)
 {
   StMemReadResult = NOTHING_READ_RESULT;
   while ( !fContinue )
@@ -391,6 +391,108 @@ DWORD MainCycleThread(LPDWORD lpdwParam)
   catch (ESocket &eSoc)
   {
     AStr prStr = "Ошибка сокета: " + eSoc.Message;
+    PutLogFile( prStr );
+  };
+  delete Socket;
+  return 0;
+} */
+
+DWORD MainCycleThread(LPDWORD lpdwParam)
+{
+  StMemReadResult = NOTHING_READ_RESULT;
+
+  AStr prStr = "Запуск основного цикла опроса (с авто-реконнектом)...";
+  PutLogFile( prStr );
+
+  int errorCount = 0;              // Счетчик ошибок таймаута
+  const int MAX_ERRORS = 3;        // Сколько раз прощаем тишину до реконнекта
+  const int RECONNECT_DELAY = 5000; // Пауза при физическом обрыве (5 сек)
+
+  while ( !fContinue )
+  {
+    try
+    {
+      // 1. Проверяем, жив ли дескриптор порта
+      if ( !Socket->Status() )
+      {
+        prStr = "Попытка переподключения к COM-порту...";
+        PutLogFileNoT( prStr );
+        
+        Socket->Open(); // Если шнура нет, вылетит исключение в блок catch
+        
+        prStr = "Подключение к порту успешно восстановлено!";
+        PutLogFile( prStr );
+        
+        errorCount = 0; // Сбрасываем счетчик после успешного коннекта
+      }
+
+      StReadResult = OK_READ_READ_RESULT;
+      
+      // 2. Читаем пакет.
+      ReadPacket();
+
+      // 3. Логика авто-реконнекта при таймаутах (кабель вставлен, но тишина)
+      if ( StReadResult == SOCKET_ERROR_READ_RESULT )
+      {
+        errorCount++;
+        if ( errorCount >= MAX_ERRORS )
+        {
+          prStr = "Нет данных от порта (" + IntToStr(MAX_ERRORS) + " попыток). Сброс подключения.";
+          PutLogFile( prStr );
+          
+          Socket->Close(); // Принудительно закрываем порт. На след. витке он откроется заново.
+          errorCount = 0;
+        }
+      }
+      else if ( StReadResult == OK_READ_READ_RESULT || StReadResult == NO_RESEIVE_READ_RESULT )
+      {
+        // Данные идут, порт жив
+        errorCount = 0;
+      }
+
+      // 4. Парсинг и обработка времени
+      if ( OK_READ_READ_RESULT == StReadResult )
+      {
+        AnalPacket();
+        if ( OK_READ_READ_RESULT == StReadResult )
+          TimeConvert();
+      }
+
+      // Анализ результата (печать в лог)
+      ResProt();
+
+      // Корректирование времени
+      if ( OK_READ_READ_RESULT == StReadResult )
+        TimeCorrect();
+
+      Sleep( 1000 );
+    }
+    catch (ESocket &eSoc)
+    {
+      // Сюда программа падает, если выдернули шнур или порт занят
+      prStr = "Критическая ошибка порта: " + eSoc.Message;
+      PutLogFile( prStr );
+      
+      Socket->Close(); // Сбрасываем мертвый дескриптор
+      Sleep( RECONNECT_DELAY );
+    }
+    catch (...)
+    {
+      PutLogFile("Неизвестная ошибка в MainCycleThread");
+      Sleep( RECONNECT_DELAY );
+    }
+  }; // конец while
+
+  // Завершение потока (служба останавливается)
+  try
+  {
+    Socket->Close();
+    prStr = "Закрыт порт № " + IntToStr( CURRENT_PORT );
+    PutLogFile( prStr );
+  }
+  catch (ESocket &eSoc)
+  {
+    prStr = "Ошибка сокета: " + eSoc.Message;
     PutLogFile( prStr );
   };
   delete Socket;
@@ -518,7 +620,7 @@ void Init()
   strcpy( Socket->sHookStr, HookStr );
   memcpy( &(Socket->dcb), &lDCB, sizeof(Socket->dcb) );*/
 
-  try
+try
   {
     Socket->Open();
     fContinue = FALSE;
@@ -527,8 +629,8 @@ void Init()
   }
   catch (ESocket &eSoc)
   {
-    fContinue = TRUE;
-    AStr prStr = "Ошибка сокета: " + eSoc.Message;
+    fContinue = FALSE; // <--- ИЗМЕНЕНО: теперь мы разрешаем циклу запуститься!
+    AStr prStr = "Ошибка сокета при старте: " + eSoc.Message;
     PutLogFile( prStr );
   }
 }

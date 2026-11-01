@@ -149,7 +149,7 @@ unsigned short __fastcall TSocket::ReadEx(void* buf, unsigned short num, int t_o
     // Для NMEA чтения это обычно не нужно, но для совместимости с PComm логикой сделаем:
     COMMTIMEOUTS currentParams;
     GetCommTimeouts(hComm, &currentParams);
-    
+
     if (currentParams.ReadTotalTimeoutConstant != (DWORD)t_out) {
         // Режим: читать сразу, но ждать не более t_out, если буфер пуст
         SetTimeouts(MAXDWORD, 0, t_out);
@@ -160,23 +160,25 @@ unsigned short __fastcall TSocket::ReadEx(void* buf, unsigned short num, int t_o
 
     if (!res) {
         // Если произошла системная ошибка (например, выдернули шнур)
-        return 0; 
+        return 0;
     }
 
     return (unsigned short)bytesRead;
 }
-
 //---------------------------------------------------------------------------
 void __fastcall TSocket::Write(void* buf, unsigned short num)
 {
-    if (hComm == INVALID_HANDLE_VALUE) 
+    if (hComm == INVALID_HANDLE_VALUE)
         throw ESocket("Порт закрыт, запись невозможна", ERR_NOT_RESPONCE);
 
     DWORD bytesWritten = 0;
     BOOL res = WriteFile(hComm, buf, (DWORD)num, &bytesWritten, NULL);
 
-    if (!res || bytesWritten != num)
+    // ИСПРАВЛЕНИЕ: Добавлено явное приведение (DWORD) перед num
+    if (!res || bytesWritten != (DWORD)num)
     {
         throw ESocket("Ошибка записи в порт (WinAPI)", ERR_NOT_RESPONCE);
     }
 }
+//---------------------------------------------------------------------------
+
