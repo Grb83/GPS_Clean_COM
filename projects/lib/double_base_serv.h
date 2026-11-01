@@ -3,7 +3,7 @@
 #ifndef double_base_servH
 #define double_base_servH
 //---------------------------------------------------------------------------
-//Модуль создан всвязи с ош Buildera для const double
+//РњРѕРґСѓР»СЊ СЃРѕР·РґР°РЅ РІСЃРІСЏР·Рё СЃ РѕС€ Buildera РґР»СЏ const double
 //e
 
 const double  DECENT_MONTH_DT = 30.0;
@@ -17,6 +17,6 @@ const double  M_SEC_DT = SEC_DT/1000.0;
 const double ZERO_TIME = 0.0;
 const double UNLIM_TIME = 1000000.0;
 
-const float _fNoDefined = 10e-38;//Это значение для переменной типа float означает, что значение не определено
+const float _fNoDefined = 10e-38;//Р­С‚Рѕ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ РїРµСЂРµРјРµРЅРЅРѕР№ С‚РёРїР° float РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ Р·РЅР°С‡РµРЅРёРµ РЅРµ РѕРїСЂРµРґРµР»РµРЅРѕ
 
 #endif

@@ -32,15 +32,15 @@ const int LBOUND_DAY_TIME_CORR = 7;
 const int HBOUND_DAY_TIME_CORR = 21;
 
 
-//Нумер от 0
+//РќСѓРјРµСЂ РѕС‚ 0
 //const int DATE_FIELD_NUMBER = 2;
 //const int TIME_FIELD_NUMBER = 3;
 //const int RESEIVE_FIELD_NUMBER = 10;
-// Константы для $GPRMC
-const int TIME_FIELD_NUMBER = 0;      // Время идет первым (было 3)
-const int RESEIVE_FIELD_NUMBER = 1;   // Статус (A/V) идет вторым (было 10)
-const int DATE_FIELD_NUMBER = 8;      // Дата идет девятой (было 2)
-//e Нумер от 0
+// РљРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ $GPRMC
+const int TIME_FIELD_NUMBER = 0;      // Р’СЂРµРјСЏ РёРґРµС‚ РїРµСЂРІС‹Рј (Р±С‹Р»Рѕ 3)
+const int RESEIVE_FIELD_NUMBER = 1;   // РЎС‚Р°С‚СѓСЃ (A/V) РёРґРµС‚ РІС‚РѕСЂС‹Рј (Р±С‹Р»Рѕ 10)
+const int DATE_FIELD_NUMBER = 8;      // Р”Р°С‚Р° РёРґРµС‚ РґРµРІСЏС‚РѕР№ (Р±С‹Р»Рѕ 2)
+//e РќСѓРјРµСЂ РѕС‚ 0
 
 const int BODY_PACK_MAX_CHARS = 1000;
 
@@ -115,7 +115,7 @@ int Server_Start(void)
   AStr prStr = "";
   PutLogFileNoT( prStr );
 
-  prStr = "Начало работы.";
+  prStr = "РќР°С‡Р°Р»Рѕ СЂР°Р±РѕС‚С‹.";
   PutLogFile( prStr );
 
   DWORD dwThreadId;
@@ -147,13 +147,13 @@ int Server_Start(void)
 
 void Server_Stop(void)
 {
-  //Деиниц
+  //Р”РµРёРЅРёС†
   fContinue=TRUE;
   if (hMainThread)
     WaitForSingleObject(hMainThread, INFINITE);
-  //е Деиниц
+  //Рµ Р”РµРёРЅРёС†
 
-  AStr prStr = "Конец работы.";
+  AStr prStr = "РљРѕРЅРµС† СЂР°Р±РѕС‚С‹.";
   PutLogFile( prStr );
 }
 
@@ -227,7 +227,7 @@ void TimeConvert()
 
 void TimeCorrect()
 {
-  //Допустимый диапазон корркции времени
+  //Р”РѕРїСѓСЃС‚РёРјС‹Р№ РґРёР°РїР°Р·РѕРЅ РєРѕСЂСЂРєС†РёРё РІСЂРµРјРµРЅРё
   double prPart = GPSDT - floor( GPSDT );
   if
   (
@@ -235,7 +235,7 @@ void TimeCorrect()
     &&
     ( prPart < HBoundDayTimeCorr * HOUR_DT )
   )
-  //e Допустимый диапазон корркции времени
+  //e Р”РѕРїСѓСЃС‚РёРјС‹Р№ РґРёР°РїР°Р·РѕРЅ РєРѕСЂСЂРєС†РёРё РІСЂРµРјРµРЅРё
   {
     TDateTime prNow = Now();
     if ( fabs( GPSDT - prNow ) > PossibleTimeDiff * SEC_DT )
@@ -264,11 +264,11 @@ void TimeCorrect()
 
       AStr prStr
         =
-        "Произведена коррекция времени. Было: "
+        "РџСЂРѕРёР·РІРµРґРµРЅР° РєРѕСЂСЂРµРєС†РёСЏ РІСЂРµРјРµРЅРё. Р‘С‹Р»Рѕ: "
         +
         DateTimeToStr( prNow )
         +
-        " стало: "
+        " СЃС‚Р°Р»Рѕ: "
         +
         DateTimeToStr( GPSDT )
         ;
@@ -311,45 +311,45 @@ void ResProt()
     switch ( StReadResult )
     {
       case OK_READ_READ_RESULT:
-        prStr = "Успешное чтение пакетов с данными.";
+        prStr = "РЈСЃРїРµС€РЅРѕРµ С‡С‚РµРЅРёРµ РїР°РєРµС‚РѕРІ СЃ РґР°РЅРЅС‹РјРё.";
         PutLogFile( prStr );
         break;
       case NOT_READ_READ_RESULT:
-        prStr = "Ожидаемый пакет не приходит (" + IntToStr( StNotReadNum ) + " раз ).";
+        prStr = "РћР¶РёРґР°РµРјС‹Р№ РїР°РєРµС‚ РЅРµ РїСЂРёС…РѕРґРёС‚ (" + IntToStr( StNotReadNum ) + " СЂР°Р· ).";
         PutLogFile( prStr );
         break;
       case SOCKET_ERROR_READ_RESULT:
-        prStr = "Ошибка работы сокета: не поступают данные.";
+        prStr = "РћС€РёР±РєР° СЂР°Р±РѕС‚С‹ СЃРѕРєРµС‚Р°: РЅРµ РїРѕСЃС‚СѓРїР°СЋС‚ РґР°РЅРЅС‹Рµ.";
         PutLogFile( prStr );
         break;
       case PACK_FORMAT_ERROR_READ_RESULT:
-        prStr = "Ошибка формата пакета.";
+        prStr = "РћС€РёР±РєР° С„РѕСЂРјР°С‚Р° РїР°РєРµС‚Р°.";
         PutLogFile( prStr );
         break;
       case FIELD_FORMAT_ERROR_READ_RESULT:
-        prStr = "Ошибка формата поля пакета.";
+        prStr = "РћС€РёР±РєР° С„РѕСЂРјР°С‚Р° РїРѕР»СЏ РїР°РєРµС‚Р°.";
         PutLogFile( prStr );
         break;
       case EMPTY_FIELD_READ_RESULT:
-        prStr = "Требуемое поле пусто (отстутствует связь с сателлитом).";
+        prStr = "РўСЂРµР±СѓРµРјРѕРµ РїРѕР»Рµ РїСѓСЃС‚Рѕ (РѕС‚СЃС‚СѓС‚СЃС‚РІСѓРµС‚ СЃРІСЏР·СЊ СЃ СЃР°С‚РµР»Р»РёС‚РѕРј).";
         PutLogFile( prStr );
         break;
       case NO_RESEIVE_READ_RESULT:
-        prStr = "Отстутствует связь с сателлитом.";
+        prStr = "РћС‚СЃС‚СѓС‚СЃС‚РІСѓРµС‚ СЃРІСЏР·СЊ СЃ СЃР°С‚РµР»Р»РёС‚РѕРј.";
         PutLogFile( prStr );
         break;
       case CONVERT_ERROR_READ_RESULT:
-        prStr = "Ошибка преобразования поля.";
+        prStr = "РћС€РёР±РєР° РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ РїРѕР»СЏ.";
         PutLogFile( prStr );
         break;
       case LIMIT_DIFF_EXC_READ_RESULT:
         prStr
           =
-          "Расхождение времени ("
+          "Р Р°СЃС…РѕР¶РґРµРЅРёРµ РІСЂРµРјРµРЅРё ("
           +
           IntToStr( StDiffVal )
           +
-          " сек.) превышает предельную величину."
+          " СЃРµРє.) РїСЂРµРІС‹С€Р°РµС‚ РїСЂРµРґРµР»СЊРЅСѓСЋ РІРµР»РёС‡РёРЅСѓ."
           ;
         PutLogFile( prStr );
         break;
@@ -364,33 +364,33 @@ void ResProt()
   while ( !fContinue )
   {
     StReadResult = OK_READ_READ_RESULT;
-    //Читаем пакет.
+    //Р§РёС‚Р°РµРј РїР°РєРµС‚.
     ReadPacket();
-    //e Читаем пакет.
+    //e Р§РёС‚Р°РµРј РїР°РєРµС‚.
     if ( OK_READ_READ_RESULT == StReadResult )
     {
       AnalPacket();
       if ( OK_READ_READ_RESULT == StReadResult )
         TimeConvert();
     }
-    //Анализ рез-та
+    //РђРЅР°Р»РёР· СЂРµР·-С‚Р°
     ResProt();
-    //e Анализ рез-та
-    //Корректирование времени
+    //e РђРЅР°Р»РёР· СЂРµР·-С‚Р°
+    //РљРѕСЂСЂРµРєС‚РёСЂРѕРІР°РЅРёРµ РІСЂРµРјРµРЅРё
     if ( OK_READ_READ_RESULT == StReadResult )
       TimeCorrect();
-    //e Корректирование времени
+    //e РљРѕСЂСЂРµРєС‚РёСЂРѕРІР°РЅРёРµ РІСЂРµРјРµРЅРё
     Sleep( 1000 );
   };
   try
   {
     Socket->Close();
-    AStr prStr = "Закрыт порт № " + IntToStr( CURRENT_PORT );
+    AStr prStr = "Р—Р°РєСЂС‹С‚ РїРѕСЂС‚ в„– " + IntToStr( CURRENT_PORT );
     PutLogFile( prStr );
   }
   catch (ESocket &eSoc)
   {
-    AStr prStr = "Ошибка сокета: " + eSoc.Message;
+    AStr prStr = "РћС€РёР±РєР° СЃРѕРєРµС‚Р°: " + eSoc.Message;
     PutLogFile( prStr );
   };
   delete Socket;
@@ -401,56 +401,56 @@ DWORD MainCycleThread(LPDWORD lpdwParam)
 {
   StMemReadResult = NOTHING_READ_RESULT;
 
-  AStr prStr = "Запуск основного цикла опроса (с авто-реконнектом)...";
+  AStr prStr = "Р—Р°РїСѓСЃРє РѕСЃРЅРѕРІРЅРѕРіРѕ С†РёРєР»Р° РѕРїСЂРѕСЃР° (СЃ Р°РІС‚Рѕ-СЂРµРєРѕРЅРЅРµРєС‚РѕРј)...";
   PutLogFile( prStr );
 
-  int errorCount = 0;              // Счетчик ошибок таймаута
-  const int MAX_ERRORS = 3;        // Сколько раз прощаем тишину до реконнекта
-  const int RECONNECT_DELAY = 5000; // Пауза при физическом обрыве (5 сек)
+  int errorCount = 0;              // РЎС‡РµС‚С‡РёРє РѕС€РёР±РѕРє С‚Р°Р№РјР°СѓС‚Р°
+  const int MAX_ERRORS = 3;        // РЎРєРѕР»СЊРєРѕ СЂР°Р· РїСЂРѕС‰Р°РµРј С‚РёС€РёРЅСѓ РґРѕ СЂРµРєРѕРЅРЅРµРєС‚Р°
+  const int RECONNECT_DELAY = 5000; // РџР°СѓР·Р° РїСЂРё С„РёР·РёС‡РµСЃРєРѕРј РѕР±СЂС‹РІРµ (5 СЃРµРє)
 
   while ( !fContinue )
   {
     try
     {
-      // 1. Проверяем, жив ли дескриптор порта
+      // 1. РџСЂРѕРІРµСЂСЏРµРј, Р¶РёРІ Р»Рё РґРµСЃРєСЂРёРїС‚РѕСЂ РїРѕСЂС‚Р°
       if ( !Socket->Status() )
       {
-        prStr = "Попытка переподключения к COM-порту...";
+        prStr = "РџРѕРїС‹С‚РєР° РїРµСЂРµРїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє COM-РїРѕСЂС‚Сѓ...";
         PutLogFileNoT( prStr );
         
-        Socket->Open(); // Если шнура нет, вылетит исключение в блок catch
+        Socket->Open(); // Р•СЃР»Рё С€РЅСѓСЂР° РЅРµС‚, РІС‹Р»РµС‚РёС‚ РёСЃРєР»СЋС‡РµРЅРёРµ РІ Р±Р»РѕРє catch
         
-        prStr = "Подключение к порту успешно восстановлено!";
+        prStr = "РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє РїРѕСЂС‚Сѓ СѓСЃРїРµС€РЅРѕ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРѕ!";
         PutLogFile( prStr );
         
-        errorCount = 0; // Сбрасываем счетчик после успешного коннекта
+        errorCount = 0; // РЎР±СЂР°СЃС‹РІР°РµРј СЃС‡РµС‚С‡РёРє РїРѕСЃР»Рµ СѓСЃРїРµС€РЅРѕРіРѕ РєРѕРЅРЅРµРєС‚Р°
       }
 
       StReadResult = OK_READ_READ_RESULT;
       
-      // 2. Читаем пакет.
+      // 2. Р§РёС‚Р°РµРј РїР°РєРµС‚.
       ReadPacket();
 
-      // 3. Логика авто-реконнекта при таймаутах (кабель вставлен, но тишина)
+      // 3. Р›РѕРіРёРєР° Р°РІС‚Рѕ-СЂРµРєРѕРЅРЅРµРєС‚Р° РїСЂРё С‚Р°Р№РјР°СѓС‚Р°С… (РєР°Р±РµР»СЊ РІСЃС‚Р°РІР»РµРЅ, РЅРѕ С‚РёС€РёРЅР°)
       if ( StReadResult == SOCKET_ERROR_READ_RESULT )
       {
         errorCount++;
         if ( errorCount >= MAX_ERRORS )
         {
-          prStr = "Нет данных от порта (" + IntToStr(MAX_ERRORS) + " попыток). Сброс подключения.";
+          prStr = "РќРµС‚ РґР°РЅРЅС‹С… РѕС‚ РїРѕСЂС‚Р° (" + IntToStr(MAX_ERRORS) + " РїРѕРїС‹С‚РѕРє). РЎР±СЂРѕСЃ РїРѕРґРєР»СЋС‡РµРЅРёСЏ.";
           PutLogFile( prStr );
           
-          Socket->Close(); // Принудительно закрываем порт. На след. витке он откроется заново.
+          Socket->Close(); // РџСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕ Р·Р°РєСЂС‹РІР°РµРј РїРѕСЂС‚. РќР° СЃР»РµРґ. РІРёС‚РєРµ РѕРЅ РѕС‚РєСЂРѕРµС‚СЃСЏ Р·Р°РЅРѕРІРѕ.
           errorCount = 0;
         }
       }
       else if ( StReadResult == OK_READ_READ_RESULT || StReadResult == NO_RESEIVE_READ_RESULT )
       {
-        // Данные идут, порт жив
+        // Р”Р°РЅРЅС‹Рµ РёРґСѓС‚, РїРѕСЂС‚ Р¶РёРІ
         errorCount = 0;
       }
 
-      // 4. Парсинг и обработка времени
+      // 4. РџР°СЂСЃРёРЅРі Рё РѕР±СЂР°Р±РѕС‚РєР° РІСЂРµРјРµРЅРё
       if ( OK_READ_READ_RESULT == StReadResult )
       {
         AnalPacket();
@@ -458,10 +458,10 @@ DWORD MainCycleThread(LPDWORD lpdwParam)
           TimeConvert();
       }
 
-      // Анализ результата (печать в лог)
+      // РђРЅР°Р»РёР· СЂРµР·СѓР»СЊС‚Р°С‚Р° (РїРµС‡Р°С‚СЊ РІ Р»РѕРі)
       ResProt();
 
-      // Корректирование времени
+      // РљРѕСЂСЂРµРєС‚РёСЂРѕРІР°РЅРёРµ РІСЂРµРјРµРЅРё
       if ( OK_READ_READ_RESULT == StReadResult )
         TimeCorrect();
 
@@ -469,30 +469,30 @@ DWORD MainCycleThread(LPDWORD lpdwParam)
     }
     catch (ESocket &eSoc)
     {
-      // Сюда программа падает, если выдернули шнур или порт занят
-      prStr = "Критическая ошибка порта: " + eSoc.Message;
+      // РЎСЋРґР° РїСЂРѕРіСЂР°РјРјР° РїР°РґР°РµС‚, РµСЃР»Рё РІС‹РґРµСЂРЅСѓР»Рё С€РЅСѓСЂ РёР»Рё РїРѕСЂС‚ Р·Р°РЅСЏС‚
+      prStr = "РљСЂРёС‚РёС‡РµСЃРєР°СЏ РѕС€РёР±РєР° РїРѕСЂС‚Р°: " + eSoc.Message;
       PutLogFile( prStr );
       
-      Socket->Close(); // Сбрасываем мертвый дескриптор
+      Socket->Close(); // РЎР±СЂР°СЃС‹РІР°РµРј РјРµСЂС‚РІС‹Р№ РґРµСЃРєСЂРёРїС‚РѕСЂ
       Sleep( RECONNECT_DELAY );
     }
     catch (...)
     {
-      PutLogFile("Неизвестная ошибка в MainCycleThread");
+      PutLogFile("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР° РІ MainCycleThread");
       Sleep( RECONNECT_DELAY );
     }
-  }; // конец while
+  }; // РєРѕРЅРµС† while
 
-  // Завершение потока (служба останавливается)
+  // Р—Р°РІРµСЂС€РµРЅРёРµ РїРѕС‚РѕРєР° (СЃР»СѓР¶Р±Р° РѕСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ)
   try
   {
     Socket->Close();
-    prStr = "Закрыт порт № " + IntToStr( CURRENT_PORT );
+    prStr = "Р—Р°РєСЂС‹С‚ РїРѕСЂС‚ в„– " + IntToStr( CURRENT_PORT );
     PutLogFile( prStr );
   }
   catch (ESocket &eSoc)
   {
-    prStr = "Ошибка сокета: " + eSoc.Message;
+    prStr = "РћС€РёР±РєР° СЃРѕРєРµС‚Р°: " + eSoc.Message;
     PutLogFile( prStr );
   };
   delete Socket;
@@ -512,7 +512,7 @@ void __fastcall UniPutLogFile( AStr PPStr, bool PPIsT )
 {
   bool lbIsContWork = TRUE;
   int prLogFileH;
-  //Проток
+  //РџСЂРѕС‚РѕРє
   TWrkStr fullName;
   AStr prMStr;
 
@@ -552,15 +552,15 @@ void __fastcall UniPutLogFile( AStr PPStr, bool PPIsT )
     write( prLogFileH, prMStr.c_str(), strlen( prMStr.c_str() ) );
     close( prLogFileH );
   }
-  //e Проток
+  //e РџСЂРѕС‚РѕРє
 };
 
 void Init()
 {
-  //Чтение ini-файла
+  //Р§С‚РµРЅРёРµ ini-С„Р°Р№Р»Р°
   if ( FileExists( ExtractFilePath(Application->ExeName) + "csrvgps.INI") )
   {
-    // Чтение параметров COM порта
+    // Р§С‚РµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ COM РїРѕСЂС‚Р°
     TIniFile* IniFle = new TIniFile( ExtractFilePath(Application->ExeName) + "csrvgps.INI" );
 
     CURRENT_PORT = IniFle->ReadInteger("CONFIG", "LISTEN PORT", 4);
@@ -579,7 +579,7 @@ void Init()
     delete IniFle;
     //e
   };
-  //e Чтение ini-файла
+  //e Р§С‚РµРЅРёРµ ini-С„Р°Р№Р»Р°
 
   StNotReadNum = 0;
 
@@ -599,7 +599,7 @@ void Init()
   BuildCommDCB( InitStr, &lDCB );
 
   Socket->usNumCom =(unsigned short)CURRENT_PORT;
-  //!!!испр в раб 2003 05 10
+  //!!!РёСЃРїСЂ РІ СЂР°Р± 2003 05 10
   Socket->usBaud	  =(unsigned long)( StrToInt( BaudRate ) );
   //e
   char prChar = ( lParity.c_str() )[ 0 ];
@@ -615,7 +615,7 @@ void Init()
   Socket->usType = ASDU_SOCK;
   Socket->usAddr = 0;
   Socket->usFlowCtrl = FLCTRL_NON;
-  Socket->cTypeChanel = CH_RS232;//Указатель на тип канала 0 - RS232;1 -	RS485;2 - Модем Коммут.;
+  Socket->cTypeChanel = CH_RS232;//РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С‚РёРї РєР°РЅР°Р»Р° 0 - RS232;1 -	RS485;2 - РњРѕРґРµРј РљРѕРјРјСѓС‚.;
   strcpy( Socket->sCallStr, CallStr );
   strcpy( Socket->sHookStr, HookStr );
   memcpy( &(Socket->dcb), &lDCB, sizeof(Socket->dcb) );*/
@@ -624,13 +624,13 @@ try
   {
     Socket->Open();
     fContinue = FALSE;
-    AStr prStr = "Открыт порт № " + IntToStr( CURRENT_PORT );
+    AStr prStr = "РћС‚РєСЂС‹С‚ РїРѕСЂС‚ в„– " + IntToStr( CURRENT_PORT );
     PutLogFile( prStr );
   }
   catch (ESocket &eSoc)
   {
-    fContinue = FALSE; // <--- ИЗМЕНЕНО: теперь мы разрешаем циклу запуститься!
-    AStr prStr = "Ошибка сокета при старте: " + eSoc.Message;
+    fContinue = FALSE; // <--- РР—РњР•РќР•РќРћ: С‚РµРїРµСЂСЊ РјС‹ СЂР°Р·СЂРµС€Р°РµРј С†РёРєР»Сѓ Р·Р°РїСѓСЃС‚РёС‚СЊСЃСЏ!
+    AStr prStr = "РћС€РёР±РєР° СЃРѕРєРµС‚Р° РїСЂРё СЃС‚Р°СЂС‚Рµ: " + eSoc.Message;
     PutLogFile( prStr );
   }
 }
@@ -685,19 +685,19 @@ void AnalPacket()
             StReadResult = EMPTY_FIELD_READ_RESULT;
           else
           {
-            // В GPRMC статус: 'A' = Data Valid, 'V' = Navigation Receiver Warning
-            // Если приемник на окне и не ловит спутники, будет 'V'.
-            // Для строгой проверки раскомментируй строку ниже:
+            // Р’ GPRMC СЃС‚Р°С‚СѓСЃ: 'A' = Data Valid, 'V' = Navigation Receiver Warning
+            // Р•СЃР»Рё РїСЂРёРµРјРЅРёРє РЅР° РѕРєРЅРµ Рё РЅРµ Р»РѕРІРёС‚ СЃРїСѓС‚РЅРёРєРё, Р±СѓРґРµС‚ 'V'.
+            // Р”Р»СЏ СЃС‚СЂРѕРіРѕР№ РїСЂРѕРІРµСЂРєРё СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂСѓР№ СЃС‚СЂРѕРєСѓ РЅРёР¶Рµ:
 
             if ( StFieldResult[0] != 'A' ) StReadResult = NO_RESEIVE_READ_RESULT;
 
-            // Если нужно синхронизировать время ДАЖЕ если спутники не пойманы
-            // (но время в NMEA идет), можно закомментировать проверку выше.
-            // Но лучше вынести антенну на улицу, чтобы пошла буква 'A'.
+            // Р•СЃР»Рё РЅСѓР¶РЅРѕ СЃРёРЅС…СЂРѕРЅРёР·РёСЂРѕРІР°С‚СЊ РІСЂРµРјСЏ Р”РђР–Р• РµСЃР»Рё СЃРїСѓС‚РЅРёРєРё РЅРµ РїРѕР№РјР°РЅС‹
+            // (РЅРѕ РІСЂРµРјСЏ РІ NMEA РёРґРµС‚), РјРѕР¶РЅРѕ Р·Р°РєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ РїСЂРѕРІРµСЂРєСѓ РІС‹С€Рµ.
+            // РќРѕ Р»СѓС‡С€Рµ РІС‹РЅРµСЃС‚Рё Р°РЅС‚РµРЅРЅСѓ РЅР° СѓР»РёС†Сѓ, С‡С‚РѕР±С‹ РїРѕС€Р»Р° Р±СѓРєРІР° 'A'.
           }
           break;
       }
-    }//ok чтен
+    }//ok С‡С‚РµРЅ
     if ( OK_READ_READ_RESULT != StReadResult )
       break;
   }//for
@@ -758,33 +758,33 @@ void ReadPacket()
   memset( StCmdBuffer, 0x0 , sizeof( StCmdBuffer ) );
   try
   {
-    Socket->Clear();      //Очищаем входную очередь сокета.
+    Socket->Clear();      //РћС‡РёС‰Р°РµРј РІС…РѕРґРЅСѓСЋ РѕС‡РµСЂРµРґСЊ СЃРѕРєРµС‚Р°.
 
-    // Внутри ReadPacket()
+    // Р’РЅСѓС‚СЂРё ReadPacket()
     SinckrRead( '$' );
     if ( OK_READ_READ_RESULT == StReadResult )
     {
-      SinckrRead( 'G' ); // Было 'P'
+      SinckrRead( 'G' ); // Р‘С‹Р»Рѕ 'P'
       if ( OK_READ_READ_RESULT == StReadResult )
       {
-        SinckrRead( 'P' ); // Было 'G'
+        SinckrRead( 'P' ); // Р‘С‹Р»Рѕ 'G'
         if ( OK_READ_READ_RESULT == StReadResult )
         {
-          SinckrRead( 'R' ); // Осталось 'R'
+          SinckrRead( 'R' ); // РћСЃС‚Р°Р»РѕСЃСЊ 'R'
           if ( OK_READ_READ_RESULT == StReadResult )
           {
-            SinckrRead( 'M' ); // Осталось 'M'
+            SinckrRead( 'M' ); // РћСЃС‚Р°Р»РѕСЃСЊ 'M'
             if ( OK_READ_READ_RESULT == StReadResult )
             {
-              SinckrRead( 'C' ); // Было 'F' -> меняем на 'C' ($GPRMC)
+              SinckrRead( 'C' ); // Р‘С‹Р»Рѕ 'F' -> РјРµРЅСЏРµРј РЅР° 'C' ($GPRMC)
               if ( OK_READ_READ_RESULT == StReadResult )
               {
                 SinckrRead( ',' );
                 if ( OK_READ_READ_RESULT == StReadResult )
-                  //Читаем остальную часть пакета
+                  //Р§РёС‚Р°РµРј РѕСЃС‚Р°Р»СЊРЅСѓСЋ С‡Р°СЃС‚СЊ РїР°РєРµС‚Р°
                   ReadPacketBody();
-                  //e Читаем остальную часть пакета
-              }//С
+                  //e Р§РёС‚Р°РµРј РѕСЃС‚Р°Р»СЊРЅСѓСЋ С‡Р°СЃС‚СЊ РїР°РєРµС‚Р°
+              }//РЎ
             }//M
           }//R
         }//P
@@ -794,7 +794,7 @@ void ReadPacket()
   catch (ESocket &eSoc)
   {
     StReadResult = SOCKET_ERROR_READ_RESULT;
-    AStr prStr = "Ошибка чтения сокета: " + eSoc.Message;
+    AStr prStr = "РћС€РёР±РєР° С‡С‚РµРЅРёСЏ СЃРѕРєРµС‚Р°: " + eSoc.Message;
     PutLogFile( prStr );
   };
 }

@@ -20,9 +20,9 @@ bool inttobool( int PPI );
 
 TDateTime __fastcall WinLBound( TDateTime PPBase, TDateTime PPStep );
 
-//Валидация
+//Р’Р°Р»РёРґР°С†РёСЏ
 void UIntInpValid( char &Key );
-//e Валидация
+//e Р’Р°Р»РёРґР°С†РёСЏ
 TDateTime SecToCurrMessBegCount( TDateTime PPDT );
 
 TDateTime UnToWinTime( time_t pFT );

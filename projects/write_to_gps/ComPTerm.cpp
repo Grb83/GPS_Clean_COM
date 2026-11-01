@@ -47,7 +47,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
   }
   catch (ESocket& e)
   {
-    AStr prStr = "Ошибка сокета при записи/чтении: " + e.Message;
+    AStr prStr = "РћС€РёР±РєР° СЃРѕРєРµС‚Р° РїСЂРё Р·Р°РїРёСЃРё/С‡С‚РµРЅРёРё: " + e.Message;
     PutLogFile( prStr );
   }
 }

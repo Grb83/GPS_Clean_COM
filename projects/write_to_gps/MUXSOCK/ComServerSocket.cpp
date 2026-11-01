@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
-//       КЛАСС ПРЕДОСТАВЛЯЕТ МЕТОДЫ ДЛЯ ОПРОСА СОКЕТА
-//  Интерфейсный класс для библиотеки Muxsock1.dll
-//  Связан с дочерним окном главной формы для отображения состаяния сокета
+//       РљР›РђРЎРЎ РџР Р•Р”РћРЎРўРђР’Р›РЇР•Рў РњР•РўРћР”Р« Р”Р›РЇ РћРџР РћРЎРђ РЎРћРљР•РўРђ
+//  РРЅС‚РµСЂС„РµР№СЃРЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ Р±РёР±Р»РёРѕС‚РµРєРё Muxsock1.dll
+//  РЎРІСЏР·Р°РЅ СЃ РґРѕС‡РµСЂРЅРёРј РѕРєРЅРѕРј РіР»Р°РІРЅРѕР№ С„РѕСЂРјС‹ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ СЃРѕСЃС‚Р°СЏРЅРёСЏ СЃРѕРєРµС‚Р°
 //---------------------------------------------------------------------------
 #include <vcl.h>
 #include <stdio.h>
@@ -19,9 +19,9 @@ const unsigned int TimeOutSocket=100;
 
 __fastcall TSocket::TSocket()
 {
-                      //        Начальные установки
+                      //        РќР°С‡Р°Р»СЊРЅС‹Рµ СѓСЃС‚Р°РЅРѕРІРєРё
 
-#if 0                  // без КМ
+#if 0                  // Р±РµР· РљРњ
   usNumCom = 1;
   usBaud = 300;
   usData = 7;
@@ -74,7 +74,7 @@ void __fastcall TSocket::Open(void)
 
   port = (int)usNumCom;
   iErr = sio_open(port);
-  if (iErr != 0) throw ESocket("Ошибка открытия порта: " + IntToStr(iErr), ERR_OPEN_SOCKET);
+  if (iErr != 0) throw ESocket("РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РїРѕСЂС‚Р°: " + IntToStr(iErr), ERR_OPEN_SOCKET);
 
   IoCtl();
 
@@ -100,37 +100,37 @@ void __fastcall TSocket::Open(void)
 
 #if 0
   if (usNumCom > 2) {
-    usFlowCtrl=FLCTRL_RS485;  // 15.06.01 -- by AVN для отладки dll
+    usFlowCtrl=FLCTRL_RS485;  // 15.06.01 -- by AVN РґР»СЏ РѕС‚Р»Р°РґРєРё dll
   }
   if (usNumCom == 2) {
-    usFlowCtrl=FLCTRL_RTSCTS;  // 03.07.01 -- by AVN для отладки модемов
+    usFlowCtrl=FLCTRL_RTSCTS;  // 03.07.01 -- by AVN РґР»СЏ РѕС‚Р»Р°РґРєРё РјРѕРґРµРјРѕРІ
   }
 #endif
 
   uiResult=OpenSSock( usNumCom,ModeString,bProtocol,usType,usAddr,usFlowCtrl,
   &cTypeChanel,sCallStr,sHookStr,&dcb);
-  //Если произошла ошибка открытия сокета
+  //Р•СЃР»Рё РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ СЃРѕРєРµС‚Р°
   Id=(unsigned short)(uiResult & 0x0000FFFF);
   if (uiResult & 0xFFFF0000) {
 //chig      ComServerThread->socketBad();
       switch (uiResult >> 16) {
           case SOCK_PORT_OPEN_ERROR: Id = 0xFFFF;
-                                     throw ESocket("Ошибка открытия порта.", ERR_OPEN_SOCKET);
-          case SOCK_PORT_DCB_NOTMATCH: throw ESocket("Не совпадают настройки режима порта.", ERR_OPEN_SOCKET);
+                                     throw ESocket("РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РїРѕСЂС‚Р°.", ERR_OPEN_SOCKET);
+          case SOCK_PORT_DCB_NOTMATCH: throw ESocket("РќРµ СЃРѕРІРїР°РґР°СЋС‚ РЅР°СЃС‚СЂРѕР№РєРё СЂРµР¶РёРјР° РїРѕСЂС‚Р°.", ERR_OPEN_SOCKET);
           case SOCK_DEV_NOTMATCH: Id = 0xFFFF;
-                                  throw ESocket("Не совпадает строка связи или тип канала.", ERR_OPEN_SOCKET);
+                                  throw ESocket("РќРµ СЃРѕРІРїР°РґР°РµС‚ СЃС‚СЂРѕРєР° СЃРІСЏР·Рё РёР»Рё С‚РёРї РєР°РЅР°Р»Р°.", ERR_OPEN_SOCKET);
           case SOCK_OPEN_ERROR: Id = 0xFFFF;
-                                throw ESocket("Слишком много открытых сокетов.", ERR_OPEN_SOCKET);
+                                throw ESocket("РЎР»РёС€РєРѕРј РјРЅРѕРіРѕ РѕС‚РєСЂС‹С‚С‹С… СЃРѕРєРµС‚РѕРІ.", ERR_OPEN_SOCKET);
           case SOCK_BAD_TYPE:
           case SOCK_LIMIT_EXC:
           case SOCK_READ_TOUT:
           default:             Id = 0xFFFF;
-                               throw ESocket("Невозможно открыть сокет.", ERR_OPEN_SOCKET);
+                               throw ESocket("РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ СЃРѕРєРµС‚.", ERR_OPEN_SOCKET);
       }
   }
   if (Id == 0xFFFF) {
 //chig      ComServerThread->socketBad();
-      throw ESocket("Сокет не открыт.", ERR_OPEN_SOCKET);
+      throw ESocket("РЎРѕРєРµС‚ РЅРµ РѕС‚РєСЂС‹С‚.", ERR_OPEN_SOCKET);
   }
   ReadSSock( Id, (unsigned char*)ModeString, 1, 10 );
   if (!GetSSockConnectStatus(Id)) {
@@ -140,7 +140,7 @@ void __fastcall TSocket::Open(void)
       if (count > retries) {
           Close();
 //chig          ComServerThread->socketBad();
-          throw ESocket("Соединение не установлено.", ERR_OPEN_SOCKET);
+          throw ESocket("РЎРѕРµРґРёРЅРµРЅРёРµ РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ.", ERR_OPEN_SOCKET);
       }
   }
 #endif
@@ -205,7 +205,7 @@ void __fastcall TSocket::IoCtl(void)
   iErr = sio_ioctl(port, baud, parity | bit_cnt | stop_bit);
   if (iErr != 0) {
 //chig    ComServerThread->socketBad();
-    throw ESocket("Ошибка настройки порта: " + IntToStr(iErr), ERR_OPEN_SOCKET);
+    throw ESocket("РћС€РёР±РєР° РЅР°СЃС‚СЂРѕР№РєРё РїРѕСЂС‚Р°: " + IntToStr(iErr), ERR_OPEN_SOCKET);
   }
 }
 #endif
@@ -223,7 +223,7 @@ void __fastcall TSocket::Close(void)
   iErr = sio_close(port);
   if (iErr != 0) {
 //chig    ComServerThread->socketBad();
-    throw ESocket("Ошибка закрытия порта: " + IntToStr(iErr));
+    throw ESocket("РћС€РёР±РєР° Р·Р°РєСЂС‹С‚РёСЏ РїРѕСЂС‚Р°: " + IntToStr(iErr));
   }
 //chig  ComServerThread->socketOk();
 
@@ -240,7 +240,7 @@ void __fastcall TSocket::Close(void)
 	else
 	{
 //chig		ComServerThread->socketBad();
-		throw(ESocket("Сокет не закрыт."));
+		throw(ESocket("РЎРѕРєРµС‚ РЅРµ Р·Р°РєСЂС‹С‚."));
 	}
 #endif
 }
@@ -261,13 +261,13 @@ unsigned short __fastcall TSocket::ReadEx( void* buf, unsigned short num, int t_
     iErr = sio_SetReadTimeouts(port, read_timeout, 0);
     if (iErr != 0) {
 //chig      ComServerThread->socketBad();
-      throw ESocket("Ошибка установки таймаута чтения порта: " + IntToStr(iErr));
+      throw ESocket("РћС€РёР±РєР° СѓСЃС‚Р°РЅРѕРІРєРё С‚Р°Р№РјР°СѓС‚Р° С‡С‚РµРЅРёСЏ РїРѕСЂС‚Р°: " + IntToStr(iErr));
     }
   }
   iErr = sio_read(port, (char*)buf, (int)num);
   if (iErr < 0) {
 //chig    ComServerThread->socketBad();
-    throw ESocket("Ошибка чтения порта: " + IntToStr(iErr));
+    throw ESocket("РћС€РёР±РєР° С‡С‚РµРЅРёСЏ РїРѕСЂС‚Р°: " + IntToStr(iErr));
   }
   read = (unsigned short)iErr;
 
@@ -298,13 +298,13 @@ void __fastcall TSocket::Read( void* buf, unsigned short num, int t_out )
     iErr = sio_SetReadTimeouts(port, read_timeout, 0);
     if (iErr != 0) {
 //chig      ComServerThread->socketBad();
-      throw ESocket("Ошибка установки таймаута чтения порта: " + IntToStr(iErr));
+      throw ESocket("РћС€РёР±РєР° СѓСЃС‚Р°РЅРѕРІРєРё С‚Р°Р№РјР°СѓС‚Р° С‡С‚РµРЅРёСЏ РїРѕСЂС‚Р°: " + IntToStr(iErr));
     }
   }
   iErr = sio_read(port, (char*)buf, (int)num);
   if (iErr < 0) {
 //chig    ComServerThread->socketBad();
-    throw ESocket("Ошибка чтения порта: " + IntToStr(iErr));
+    throw ESocket("РћС€РёР±РєР° С‡С‚РµРЅРёСЏ РїРѕСЂС‚Р°: " + IntToStr(iErr));
   }
   read = (unsigned short)iErr;
 
@@ -314,7 +314,7 @@ void __fastcall TSocket::Read( void* buf, unsigned short num, int t_out )
   }
   else {
 //chig    ComServerThread->socketBad();
-    throw ESocket("Не поступают данные из порта.", ERR_NOT_RESPONCE);
+    throw ESocket("РќРµ РїРѕСЃС‚СѓРїР°СЋС‚ РґР°РЅРЅС‹Рµ РёР· РїРѕСЂС‚Р°.", ERR_NOT_RESPONCE);
   }
 
 #else
@@ -328,7 +328,7 @@ void __fastcall TSocket::Read( void* buf, unsigned short num, int t_out )
   }
 	else {
 //chig      ComServerThread->socketBad();
-      throw ESocket("Не поступают данные из сокета.", ERR_NOT_RESPONCE);
+      throw ESocket("РќРµ РїРѕСЃС‚СѓРїР°СЋС‚ РґР°РЅРЅС‹Рµ РёР· СЃРѕРєРµС‚Р°.", ERR_NOT_RESPONCE);
 	}
 
 #endif
@@ -345,7 +345,7 @@ void __fastcall TSocket::Write( void* buf, unsigned short num )
   iErr = sio_write(port, (char*)buf, (int)num);
   if (iErr < 0) {
 //chig    ComServerThread->socketBad();
-    throw ESocket("Ошибка записи порта: " + IntToStr(iErr));
+    throw ESocket("РћС€РёР±РєР° Р·Р°РїРёСЃРё РїРѕСЂС‚Р°: " + IntToStr(iErr));
   }
   if ((unsigned short)iErr >= num)
   {
@@ -353,7 +353,7 @@ void __fastcall TSocket::Write( void* buf, unsigned short num )
   }
   else {
 //chig    ComServerThread->socketBad();
-    throw ESocket("Данные в порт не поступают.", ERR_NOT_RESPONCE);
+    throw ESocket("Р”Р°РЅРЅС‹Рµ РІ РїРѕСЂС‚ РЅРµ РїРѕСЃС‚СѓРїР°СЋС‚.", ERR_NOT_RESPONCE);
   }
 
 #else
@@ -366,7 +366,7 @@ void __fastcall TSocket::Write( void* buf, unsigned short num )
       if (WriteSSock(Id, (unsigned char*)buf + i, 1, (unsigned char)usAddr) == 0)
       {
 //chig        ComServerThread->socketBad();
-        throw ESocket("Данные в сокет не поступают.", ERR_NOT_RESPONCE);
+        throw ESocket("Р”Р°РЅРЅС‹Рµ РІ СЃРѕРєРµС‚ РЅРµ РїРѕСЃС‚СѓРїР°СЋС‚.", ERR_NOT_RESPONCE);
       }
       Sleep(100);
     }
@@ -380,7 +380,7 @@ void __fastcall TSocket::Write( void* buf, unsigned short num )
     }
     else {
 //chig      ComServerThread->socketBad();
-      throw ESocket("Данные в сокет не поступают.", ERR_NOT_RESPONCE);
+      throw ESocket("Р”Р°РЅРЅС‹Рµ РІ СЃРѕРєРµС‚ РЅРµ РїРѕСЃС‚СѓРїР°СЋС‚.", ERR_NOT_RESPONCE);
     }
   }
 #endif

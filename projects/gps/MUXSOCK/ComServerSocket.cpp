@@ -27,22 +27,22 @@ void __fastcall TSocket::Open(void)
 {
     AnsiString PortName = "\\\\.\\COM" + IntToStr(usNumCom);
 
-    // ОТКРЫВАЕМ ПОРТ В АСИНХРОННОМ РЕЖИМЕ (FILE_FLAG_OVERLAPPED)
-    // Это спасает от любых зависаний при выдергивании USB
+    // РћРўРљР Р«Р’РђР•Рњ РџРћР Рў Р’ РђРЎРРќРҐР РћРќРќРћРњ Р Р•Р–РРњР• (FILE_FLAG_OVERLAPPED)
+    // Р­С‚Рѕ СЃРїР°СЃР°РµС‚ РѕС‚ Р»СЋР±С‹С… Р·Р°РІРёСЃР°РЅРёР№ РїСЂРё РІС‹РґРµСЂРіРёРІР°РЅРёРё USB
     hComm = CreateFile(
         PortName.c_str(),
         GENERIC_READ | GENERIC_WRITE,
         0,    
         NULL, 
         OPEN_EXISTING,
-        FILE_FLAG_OVERLAPPED, // <--- Ключевое изменение!
+        FILE_FLAG_OVERLAPPED, // <--- РљР»СЋС‡РµРІРѕРµ РёР·РјРµРЅРµРЅРёРµ!
         NULL
     );
 
     if (hComm == INVALID_HANDLE_VALUE)
     {
         DWORD dwError = GetLastError();
-        throw ESocket("Ошибка открытия порта " + PortName + " (WinAPI Code: " + IntToStr((int)dwError) + ")", ERR_OPEN_SOCKET);
+        throw ESocket("РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ РїРѕСЂС‚Р° " + PortName + " (WinAPI Code: " + IntToStr((int)dwError) + ")", ERR_OPEN_SOCKET);
     }
 
     SetupComm(hComm, 4096, 4096);
@@ -53,7 +53,7 @@ void __fastcall TSocket::Open(void)
     if (!GetCommState(hComm, &dcbSerialParams))
     {
         Close();
-        throw ESocket("Ошибка получения настроек порта", ERR_OPEN_SOCKET);
+        throw ESocket("РћС€РёР±РєР° РїРѕР»СѓС‡РµРЅРёСЏ РЅР°СЃС‚СЂРѕРµРє РїРѕСЂС‚Р°", ERR_OPEN_SOCKET);
     }
 
     dcbSerialParams.BaudRate = usBaud;
@@ -73,7 +73,7 @@ void __fastcall TSocket::Open(void)
     if (!SetCommState(hComm, &dcbSerialParams))
     {
         Close();
-        throw ESocket("Ошибка установки настроек порта", ERR_OPEN_SOCKET);
+        throw ESocket("РћС€РёР±РєР° СѓСЃС‚Р°РЅРѕРІРєРё РЅР°СЃС‚СЂРѕРµРє РїРѕСЂС‚Р°", ERR_OPEN_SOCKET);
     }
 
     Clear();
@@ -94,9 +94,9 @@ void __fastcall TSocket::Clear(void)
     {
         DWORD err;
         COMSTAT stat;
-        // Перед очисткой проверяем, жив ли порт физически
+        // РџРµСЂРµРґ РѕС‡РёСЃС‚РєРѕР№ РїСЂРѕРІРµСЂСЏРµРј, Р¶РёРІ Р»Рё РїРѕСЂС‚ С„РёР·РёС‡РµСЃРєРё
         if (!ClearCommError(hComm, &err, &stat)) {
-            throw ESocket("Связь с портом потеряна (аппаратный сбой)", ERR_OPEN_SOCKET);
+            throw ESocket("РЎРІСЏР·СЊ СЃ РїРѕСЂС‚РѕРј РїРѕС‚РµСЂСЏРЅР° (Р°РїРїР°СЂР°С‚РЅС‹Р№ СЃР±РѕР№)", ERR_OPEN_SOCKET);
         }
         PurgeComm(hComm, PURGE_RXCLEAR | PURGE_TXCLEAR); 
     }
@@ -118,31 +118,31 @@ unsigned short __fastcall TSocket::ReadEx(void* buf, unsigned short num, int t_o
         DWORD dwErr = GetLastError();
         if (dwErr != ERROR_IO_PENDING) 
         {
-            // Ошибка чтения (выдернули шнур в момент запроса)
+            // РћС€РёР±РєР° С‡С‚РµРЅРёСЏ (РІС‹РґРµСЂРЅСѓР»Рё С€РЅСѓСЂ РІ РјРѕРјРµРЅС‚ Р·Р°РїСЂРѕСЃР°)
             CloseHandle(osReader.hEvent);
-            throw ESocket("Аппаратный сбой чтения (USB извлечен?)", ERR_NOT_RESPONCE);
+            throw ESocket("РђРїРїР°СЂР°С‚РЅС‹Р№ СЃР±РѕР№ С‡С‚РµРЅРёСЏ (USB РёР·РІР»РµС‡РµРЅ?)", ERR_NOT_RESPONCE);
         }
         
-        // Операция "повисла", ждем ее завершения ровно t_out мс
+        // РћРїРµСЂР°С†РёСЏ "РїРѕРІРёСЃР»Р°", Р¶РґРµРј РµРµ Р·Р°РІРµСЂС€РµРЅРёСЏ СЂРѕРІРЅРѕ t_out РјСЃ
         DWORD dwRes = WaitForSingleObject(osReader.hEvent, t_out);
         switch(dwRes)
         {
             case WAIT_OBJECT_0:
-                // Успешно, байт пришел
+                // РЈСЃРїРµС€РЅРѕ, Р±Р°Р№С‚ РїСЂРёС€РµР»
                 if (!GetOverlappedResult(hComm, &osReader, &bytesRead, FALSE)) {
                     bytesRead = 0;
                 }
                 break;
             case WAIT_TIMEOUT:
-                // Истек таймаут (тишина в эфире), отменяем зависший запрос
+                // РСЃС‚РµРє С‚Р°Р№РјР°СѓС‚ (С‚РёС€РёРЅР° РІ СЌС„РёСЂРµ), РѕС‚РјРµРЅСЏРµРј Р·Р°РІРёСЃС€РёР№ Р·Р°РїСЂРѕСЃ
                 CancelIo(hComm);
                 bytesRead = 0;
                 break;
             default:
-                // Системный сбой (шнур выдернули во время ожидания)
+                // РЎРёСЃС‚РµРјРЅС‹Р№ СЃР±РѕР№ (С€РЅСѓСЂ РІС‹РґРµСЂРЅСѓР»Рё РІРѕ РІСЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ)
                 CancelIo(hComm);
                 CloseHandle(osReader.hEvent);
-                throw ESocket("Сбой ожидания порта (USB извлечен?)", ERR_NOT_RESPONCE);
+                throw ESocket("РЎР±РѕР№ РѕР¶РёРґР°РЅРёСЏ РїРѕСЂС‚Р° (USB РёР·РІР»РµС‡РµРЅ?)", ERR_NOT_RESPONCE);
         }
     }
 
@@ -153,12 +153,12 @@ unsigned short __fastcall TSocket::ReadEx(void* buf, unsigned short num, int t_o
 void __fastcall TSocket::Write(void* buf, unsigned short num)
 {
     if (hComm == INVALID_HANDLE_VALUE) 
-        throw ESocket("Порт закрыт, запись невозможна", ERR_NOT_RESPONCE);
+        throw ESocket("РџРѕСЂС‚ Р·Р°РєСЂС‹С‚, Р·Р°РїРёСЃСЊ РЅРµРІРѕР·РјРѕР¶РЅР°", ERR_NOT_RESPONCE);
 
     OVERLAPPED osWrite = {0};
     osWrite.hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
     if (osWrite.hEvent == NULL) 
-        throw ESocket("Сбой создания события записи", ERR_NOT_RESPONCE);
+        throw ESocket("РЎР±РѕР№ СЃРѕР·РґР°РЅРёСЏ СЃРѕР±С‹С‚РёСЏ Р·Р°РїРёСЃРё", ERR_NOT_RESPONCE);
     
     DWORD bytesWritten = 0;
     BOOL res = WriteFile(hComm, buf, (DWORD)num, &bytesWritten, &osWrite);
@@ -168,14 +168,14 @@ void __fastcall TSocket::Write(void* buf, unsigned short num)
         if (GetLastError() != ERROR_IO_PENDING) 
         {
             CloseHandle(osWrite.hEvent);
-            throw ESocket("Аппаратная ошибка записи в порт", ERR_NOT_RESPONCE);
+            throw ESocket("РђРїРїР°СЂР°С‚РЅР°СЏ РѕС€РёР±РєР° Р·Р°РїРёСЃРё РІ РїРѕСЂС‚", ERR_NOT_RESPONCE);
         }
         
-        // Ждем максимум 500мс
+        // Р–РґРµРј РјР°РєСЃРёРјСѓРј 500РјСЃ
         if (WaitForSingleObject(osWrite.hEvent, 500) == WAIT_OBJECT_0) {
             GetOverlappedResult(hComm, &osWrite, &bytesWritten, FALSE);
         } else {
-            CancelIo(hComm); // Отмена при зависании
+            CancelIo(hComm); // РћС‚РјРµРЅР° РїСЂРё Р·Р°РІРёСЃР°РЅРёРё
         }
     }
     
@@ -183,7 +183,7 @@ void __fastcall TSocket::Write(void* buf, unsigned short num)
 
     if (bytesWritten != (DWORD)num)
     {
-        throw ESocket("Таймаут записи в порт", ERR_NOT_RESPONCE);
+        throw ESocket("РўР°Р№РјР°СѓС‚ Р·Р°РїРёСЃРё РІ РїРѕСЂС‚", ERR_NOT_RESPONCE);
     }
 }
 

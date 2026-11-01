@@ -57,7 +57,7 @@ int Server_Start(void)
   AStr prStr = "";
   PutLogFileNoT( prStr );
 
-  prStr = "Начало работы.";
+  prStr = "РќР°С‡Р°Р»Рѕ СЂР°Р±РѕС‚С‹.";
   PutLogFile( prStr );
 
   DWORD dwThreadId;
@@ -69,22 +69,22 @@ int Server_Start(void)
 
 void Server_Stop(void)
 {
-  //Деиниц
+  //Р”РµРёРЅРёС†
   try
   {
     Socket->Close();
-    AStr prStr = "Закрыт порт № " + IntToStr( CURRENT_PORT );
+    AStr prStr = "Р—Р°РєСЂС‹С‚ РїРѕСЂС‚ в„– " + IntToStr( CURRENT_PORT );
     PutLogFile( prStr );
   }
   catch (ESocket &eSoc)
   {
-    AStr prStr = "Ошибка сокета: " + eSoc.Message;
+    AStr prStr = "РћС€РёР±РєР° СЃРѕРєРµС‚Р°: " + eSoc.Message;
     PutLogFile( prStr );
   };
   delete Socket;
-  //е Деиниц
+  //Рµ Р”РµРёРЅРёС†
 
-  AStr prStr = "Конец работы.";
+  AStr prStr = "РљРѕРЅРµС† СЂР°Р±РѕС‚С‹.";
   PutLogFile( prStr );
 }
 
@@ -100,7 +100,7 @@ void __fastcall PutLogFile( AStr PPStr )
 void __fastcall UniPutLogFile( AStr PPStr, bool PPIsT )
 {
   int prLogFileH;
-  //Проток
+  //РџСЂРѕС‚РѕРє
   TWrkStr fullName;
   AStr prStr = ExtractFilePath(Application->ExeName) + "ComPTermPrj.log";
   strcpy( fullName, prStr.c_str() );
@@ -132,7 +132,7 @@ void __fastcall UniPutLogFile( AStr PPStr, bool PPIsT )
     int prI = errno;
     throw;
   }
-  //e Проток
+  //e РџСЂРѕС‚РѕРє
 
   AStr prMStr;
   if ( PPIsT )
@@ -147,10 +147,10 @@ void __fastcall UniPutLogFile( AStr PPStr, bool PPIsT )
 
 void Init()
 {
-  //Чтение ini-файла
+  //Р§С‚РµРЅРёРµ ini-С„Р°Р№Р»Р°
   if ( FileExists( ExtractFilePath(Application->ExeName) + "ComPTermPrj.INI") )
   {
-    // Чтение параметров COM порта
+    // Р§С‚РµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ COM РїРѕСЂС‚Р°
     TIniFile* IniFle = new TIniFile( ExtractFilePath(Application->ExeName) + "ComPTermPrj.INI" );
 
     CURRENT_PORT = IniFle->ReadInteger("CONFIG", "LISTEN PORT", 4);
@@ -163,7 +163,7 @@ void Init()
     delete IniFle;
     //e
   };
-  //e Чтение ini-файла
+  //e Р§С‚РµРЅРёРµ ini-С„Р°Р№Р»Р°
 
 	Socket = new TSocket();
 
@@ -192,7 +192,7 @@ void Init()
   Socket->usType = ASDU_SOCK;
   Socket->usAddr = 0;
   Socket->usFlowCtrl = FLCTRL_NON;
-  Socket->cTypeChanel = CH_RS232;//Указатель на тип канала 0 - RS232;1 -	RS485;2 - Модем Коммут.;
+  Socket->cTypeChanel = CH_RS232;//РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С‚РёРї РєР°РЅР°Р»Р° 0 - RS232;1 -	RS485;2 - РњРѕРґРµРј РљРѕРјРјСѓС‚.;
   strcpy( Socket->sCallStr, CallStr );
   strcpy( Socket->sHookStr, HookStr );
   memcpy( &(Socket->dcb), &lDCB, sizeof(Socket->dcb) );
@@ -200,12 +200,12 @@ void Init()
   try
   {
     Socket->Open();
-    AStr prStr = "Открыт порт № " + IntToStr( CURRENT_PORT );
+    AStr prStr = "РћС‚РєСЂС‹С‚ РїРѕСЂС‚ в„– " + IntToStr( CURRENT_PORT );
     PutLogFile( prStr );
   }
   catch (ESocket &eSoc)
   {
-    AStr prStr = "Ошибка сокета: " + eSoc.Message;
+    AStr prStr = "РћС€РёР±РєР° СЃРѕРєРµС‚Р°: " + eSoc.Message;
     PutLogFile( prStr );
   }
 }
@@ -223,7 +223,7 @@ int ReadPacket()
     {
       if( 0x02 == CmdBuffer[0] )
       {
-      }//Первый синхроимп
+      }//РџРµСЂРІС‹Р№ СЃРёРЅС…СЂРѕРёРјРї
       byte prB = CmdBuffer[0];
 //      AStr prStr = IntToStr( prB );
       char prChar[ 30 ];
@@ -232,7 +232,7 @@ int ReadPacket()
 //      AStr prStr = IntToStr( prB );
       AStr prStr = prChar;
       PutLogFileNoT( prStr );
-    }//Проч-ли 1 симв
+    }//РџСЂРѕС‡-Р»Рё 1 СЃРёРјРІ
   }//while
   return 1;
 }

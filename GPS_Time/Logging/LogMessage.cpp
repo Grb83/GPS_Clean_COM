@@ -15,7 +15,7 @@ void LogMessage(int type, const char * Message)
 	HANDLE hFile;
 	char buf[2048];
 	int i;
-	static char *TypeMessage[3]={"Старт:  ","Стоп:   ","Ошибка: "};
+	static char *TypeMessage[3]={"РЎС‚Р°СЂС‚:  ","РЎС‚РѕРї:   ","РћС€РёР±РєР°: "};
 	static char LogMessageFileName[256];
 	static int isWriteMessage=0;
     static char IniMessageFileName[256];

@@ -15,7 +15,7 @@ SECURITY_ATTRIBUTES SecAttr;
 
 bool CreateSharedCommunication(DWORD dwSize)
 {
-//--------------Инициализация DAKL,позволяющего доступ к объекту любого процесса
+//--------------РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ DAKL,РїРѕР·РІРѕР»СЏСЋС‰РµРіРѕ РґРѕСЃС‚СѓРї Рє РѕР±СЉРµРєС‚Сѓ Р»СЋР±РѕРіРѕ РїСЂРѕС†РµСЃСЃР°
   InitializeSecurityDescriptor(&SecDesc,SECURITY_DESCRIPTOR_REVISION );
   SetSecurityDescriptorDacl(&SecDesc,TRUE,(PACL)NULL,FALSE );
   SecAttr.nLength = sizeof(SECURITY_ATTRIBUTES);

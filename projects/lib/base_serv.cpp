@@ -35,9 +35,9 @@ bool inttobool( int PPI )
 
 TDateTime __fastcall WinLBound( TDateTime PPBase, TDateTime PPStep )
 {
-  //Количество интервалов
+  //РљРѕР»РёС‡РµСЃС‚РІРѕ РёРЅС‚РµСЂРІР°Р»РѕРІ
   int prInt = floor( double( PPBase ) / double( PPStep ) );
-  //e Количество интервалов
+  //e РљРѕР»РёС‡РµСЃС‚РІРѕ РёРЅС‚РµСЂРІР°Р»РѕРІ
         return prInt * PPStep;
 }
 
@@ -72,7 +72,7 @@ bool IsNumber( char agVal )
   return lcRes;
 }
 
-//Нахождение нач текущ месяца
+//РќР°С…РѕР¶РґРµРЅРёРµ РЅР°С‡ С‚РµРєСѓС‰ РјРµСЃСЏС†Р°
 TDateTime SecToCurrMessBegCount( TDateTime PPDT )
 {
   unsigned short prY, prMonth, prD, prH, prMin, prS, prMS;
@@ -81,7 +81,7 @@ TDateTime SecToCurrMessBegCount( TDateTime PPDT )
         return
                 PPDT
                 -
-                //Хвост от начала месяца
+                //РҐРІРѕСЃС‚ РѕС‚ РЅР°С‡Р°Р»Р° РјРµСЃСЏС†Р°
                 (
                         prMS * M_SEC_DT
                         +
@@ -93,11 +93,11 @@ TDateTime SecToCurrMessBegCount( TDateTime PPDT )
                         +
       ( prD - 1 ) * DAY_DT
                 )
-                //e Хвост от начала месяца
+                //e РҐРІРѕСЃС‚ РѕС‚ РЅР°С‡Р°Р»Р° РјРµСЃСЏС†Р°
     +
-    //Поскольку исходное - секунды
+    //РџРѕСЃРєРѕР»СЊРєСѓ РёСЃС…РѕРґРЅРѕРµ - СЃРµРєСѓРЅРґС‹
     10 * M_SEC_DT
-    //e Поскольку исходное - секунды
+    //e РџРѕСЃРєРѕР»СЊРєСѓ РёСЃС…РѕРґРЅРѕРµ - СЃРµРєСѓРЅРґС‹
     ;
 }
 
@@ -213,7 +213,7 @@ void FlagReset( byte& x, byte maska )
     ~maska;
 };
 
-/*Валидаторы от СС
+/*Р’Р°Р»РёРґР°С‚РѕСЂС‹ РѕС‚ РЎРЎ
 
 file://---------------------------------------------------------------------------
 void __fastcall TFormAddRecalc::longKeyPress(TObject *Sender, char &Key)
@@ -280,7 +280,7 @@ void __fastcall TFormAddRecalc::currencyKeyPress(TObject *Sender, char &Key)
 }
 file://---------------------------------------------------------------------------
 
-Валидаторы от СС*/
+Р’Р°Р»РёРґР°С‚РѕСЂС‹ РѕС‚ РЎРЎ*/
 
 double Proporcia
   (
@@ -324,7 +324,7 @@ TDateTime WinCurrMessBegCount( TDateTime PPDT )
         return
                 PPDT
                 -
-                //Хвост от начала месяца
+                //РҐРІРѕСЃС‚ РѕС‚ РЅР°С‡Р°Р»Р° РјРµСЃСЏС†Р°
                 (
       cur_milsec * M_SEC_DT
       +
@@ -336,7 +336,7 @@ TDateTime WinCurrMessBegCount( TDateTime PPDT )
                         +
                         cur_day - 1
                 );
-                //e Хвост от начала месяца
+                //e РҐРІРѕСЃС‚ РѕС‚ РЅР°С‡Р°Р»Р° РјРµСЃСЏС†Р°
 }
 
 void __fastcall CreateWaitProcess( AStr PPCmd )
@@ -417,7 +417,7 @@ void __fastcall UnivCreateWaitProcess( AStr PPCmd, DWORD dwCreationFlags, WORD w
 
   STARTUPINFO si;
 
-  //Что-то не работает
+  //Р§С‚Рѕ-С‚Рѕ РЅРµ СЂР°Р±РѕС‚Р°РµС‚
   si.wShowWindow = wShowWindow;
   si.dwFlags = STARTF_USESHOWWINDOW;
   //e
@@ -449,20 +449,20 @@ void __fastcall UnivCreateWaitProcess( AStr PPCmd, DWORD dwCreationFlags, WORD w
 
 }
 
-//Обрезание времени до секунд
+//РћР±СЂРµР·Р°РЅРёРµ РІСЂРµРјРµРЅРё РґРѕ СЃРµРєСѓРЅРґ
 //e
-//Только для отображения
+//РўРѕР»СЊРєРѕ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ
 //e
-//Это - нов
+//Р­С‚Рѕ - РЅРѕРІ
 double ExDTToDT( double dSource_AV )
 {
   double dPartCalc_LV = dSource_AV - floor( dSource_AV );
-  //Нашли количество секунд в доле суток
+  //РќР°С€Р»Рё РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРµРєСѓРЅРґ РІ РґРѕР»Рµ СЃСѓС‚РѕРє
   int iSecCalc_LV = floor( (double)( dPartCalc_LV ) / SEC_DT  );
   //e
-  //Нашли вр в сек
+  //РќР°С€Р»Рё РІСЂ РІ СЃРµРє
   return floor( dSource_AV ) + iSecCalc_LV * SEC_DT + H_SEC_DT;
-  //e Нашли вр в сек
+  //e РќР°С€Р»Рё РІСЂ РІ СЃРµРє
 }
 //old
 /*
@@ -475,14 +475,14 @@ double ExDTToDT( double PPDT )
 */
 //e
 
-//Количество сотых в части секунды
+//РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕС‚С‹С… РІ С‡Р°СЃС‚Рё СЃРµРєСѓРЅРґС‹
 //e
 //new vart
 //e
 int HSecByExDT( double dSource_AV )
 {
   double dPartCalc_LV = dSource_AV - floor( dSource_AV );
-  //Количество сотых в части суток
+  //РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРѕС‚С‹С… РІ С‡Р°СЃС‚Рё СЃСѓС‚РѕРє
   int iPartSecRes =
     floor
     (
@@ -503,7 +503,7 @@ int HSecByExDT( double agExDT )
 */
 //e
 
-//Перевод fVal в строку (iPrec - число знаков после запятой)
+//РџРµСЂРµРІРѕРґ fVal РІ СЃС‚СЂРѕРєСѓ (iPrec - С‡РёСЃР»Рѕ Р·РЅР°РєРѕРІ РїРѕСЃР»Рµ Р·Р°РїСЏС‚РѕР№)
 AnsiString FloatToStrPrec(float fVal, int iPrec)
 {
    AnsiString sResult = "";
